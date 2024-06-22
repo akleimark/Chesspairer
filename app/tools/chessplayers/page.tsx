@@ -1,6 +1,22 @@
+"use client"
 import Navbar from "@/app/navbar";
+import { sql } from '@vercel/postgres';
+import { NextResponse } from 'next/server';
+import {useEffect, useState} from 'react';
 
 const Chessplayers = () => {
+
+  const [chessplayers, setChessplayers] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/chessplayers')
+      .then((res) => res.json())
+      .then((data) => {
+       console.log(data);
+      })
+  }, [])
+  
+    
   return (
     <>
       <Navbar />
@@ -24,6 +40,8 @@ const Chessplayers = () => {
       
     </>
   );
+
+  
 }
 
 export default Chessplayers
