@@ -1,7 +1,13 @@
-import Navigation from "./navbar";
+import Navbar from "./components/navbar";
 
 export default function Home() {
   return (
-    <Navigation />
+    <>
+    <Navbar />
+      <div className="wrapper">
+        <h1 className="text-3xl font-bold underline">home</h1>
+        
+      </div>
+      </>
   );
 }
