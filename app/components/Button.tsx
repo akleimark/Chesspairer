@@ -1,10 +1,7 @@
 const Button = (props: any) => {
     return (
         
-        <button>{props.text}</button>
-    
-            
-      
+        <button id={props.id} onClick={props.onClick}>{props.text}</button>  
     );
   };
   
