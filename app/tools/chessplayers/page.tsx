@@ -1,13 +1,15 @@
 'use client'
-import Chessplayer from '@/app/components/Chessplayer';
+
 import Navbar from '@/app/components/navbar';
 import React, { FormEvent, useEffect, useState } from 'react'
 import Button from '@/app/components/Button';
 import AddChessplayer from '@/app/lib/add-chessplayer'
+import { useRouter } from 'next/navigation'
+import { useSession} from "next-auth/react"
 
 const Chessplayers = () =>
 { 
-  
+  const router = useRouter();
   const [chessplayerContainer, setchessplayerContainer] = useState<any[]>([])
 
   useEffect(() => {
@@ -19,8 +21,7 @@ const Chessplayers = () =>
   }, [])
 
   const openAddChessplayerForm = () =>
-  {
-    console.log("clicked.");
+  {    
     const modal = document.getElementById("addChessplayerModal");
     if(modal != null)
     {
@@ -35,7 +36,6 @@ const Chessplayers = () =>
     {
       modal.style.display = "none";  
     }    
-
   }
 
   const renderBirthYearsOptions = () =>
@@ -52,7 +52,6 @@ const Chessplayers = () =>
   const renderGenderOptions = () =>
   {
     const options = [];
-    
     options.push(<option key="male" value="male">Male</option>);
     options.push(<option key="female" value="female">Female</option>);
     

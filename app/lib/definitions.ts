@@ -7,7 +7,6 @@ export type People =
     birthyear : number
 }
 
-
 export type Chessplayer = 
 {
     id : number, 
@@ -16,3 +15,8 @@ export type Chessplayer =
     chessclub_id : string
 }
 
+export type User = 
+{
+    email : string, 
+    password : string
+}

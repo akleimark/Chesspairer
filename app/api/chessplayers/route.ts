@@ -12,9 +12,9 @@ export async function GET()
               p.birthyear as birthyear, 
               cc.id as chessclub
               FROM people p
-              LEFT join chessplayers c
+              INNER join chessplayers c
                 ON c.people_id=p.id
-              LEFT join chessclubs cc
+              INNER join chessclubs cc
                 ON cc.id=c.chessclub_id
               ORDER BY lastname
               
