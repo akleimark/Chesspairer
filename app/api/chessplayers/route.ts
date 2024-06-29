@@ -16,10 +16,7 @@ export async function GET()
                 ON c.people_id=p.id
               INNER join chessclubs cc
                 ON cc.id=c.chessclub_id
-              ORDER BY lastname
-              
-              
-              
+              ORDER BY lastname                                          
               ;`;
   return NextResponse.json({ chessplayers }, { status: 200 });  
 }

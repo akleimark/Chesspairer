@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Bree+Serif);
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -74,9 +77,6 @@ table
 {
 	border-radius: 5px;
 }
-
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-@import url(https://fonts.googleapis.com/css?family=Bree+Serif);
 
 table.fancyTable
 {
@@ -200,6 +200,13 @@ Button
 	font-size: 0.7em;
 }
 
+#logout
+{
+	border:none;
+	border-radius: 0;
+	
+}
+
 
 body 
 {
@@ -316,7 +323,7 @@ nav ul li
 }
 
 /* Styling the links */
-nav a 
+nav a, nav button
 {
 	display:block;
 	padding:14px 20px;	
@@ -329,7 +336,7 @@ nav a
 nav ul li ul li:hover { background: #000000; }
 
 /* Background color change on Hover */
-nav a:hover 
+nav a:hover, nav button:hover
 { 
 	background-color: #000000; 
 }
