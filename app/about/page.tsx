@@ -1,6 +1,22 @@
+"use client"
 import Navbar from "../components/navbar";
+import { useCookies } from "next-client-cookies";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
 
-const About = () => {
+const About = () => 
+{
+  const cookies = useCookies();
+
+  useEffect(() => 
+  {
+    if (cookies.get("user-email") == undefined) 
+    {
+      redirect("/login");
+    }
+
+  }, [cookies]);
+  
   return (
     <>
       <Navbar />
@@ -10,7 +26,6 @@ const About = () => {
           This application is about pairing chess tournaments.
         </p>
       </div>
-      
     </>
   );
 }
