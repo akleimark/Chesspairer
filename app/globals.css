@@ -86,7 +86,6 @@ tbody::-webkit-scrollbar
     height: 0;
 }
 
-
 tr
 {
     width: 100%;
@@ -415,6 +414,11 @@ nav ul ul ul li
 li > a:after { content:  ' +'; }
 li > a:only-child:after { content: ''; }
 
+
+img.startPage
+{
+	margin:15px auto!important;
+}
 
 /* Media Queries
 --------------------------------------------- */
