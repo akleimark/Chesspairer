@@ -1,17 +1,14 @@
 
 import { useCookies } from 'next-client-cookies';
-import {User} from '../lib/definitions'
+import {Chessplayer, User} from '../lib/definitions'
 
-export default function getCurrentUser()
+
+export default function chessplayerIsValid(chessplayer : Chessplayer)
 {
-    let user : User = 
+    if(chessplayer.chessclub_id == "" || chessplayer.federation_id == "")    
     {
-        email : '', 
-        password : ''
+        return false;
     }
 
-   
-
-    return user;
-
+    return true;
 }

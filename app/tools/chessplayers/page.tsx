@@ -27,7 +27,8 @@ const Chessplayers = () =>
   const openAddChessplayerForm = () => 
   {
     const modal = document.getElementById("addChessplayerModal");
-    if (modal != null) {
+    if (modal != null) 
+    {
       modal.style.display = "block";
     }
   };
@@ -123,11 +124,11 @@ const Chessplayers = () =>
             <form action={AddChessplayer}>
               <div className="row">
                 <label>Fide-id: </label>
-                <input name="chessplayer_id" id="chessplayer_id" />
+                <input name="chessplayer_id" id="chessplayer_id" required/>
               </div>
               <div className="row">
                 <label>Name: </label>
-                <input name="name_id" id="name_id" />
+                <input name="name_id" id="name_id" required/>
               </div>
               <div className="row">
                 <label>Birthyear: </label>
@@ -143,7 +144,7 @@ const Chessplayers = () =>
               </div>
               <div className="row">
                 <label>Chessclub: </label>
-                <input name="chessclub_id" id="chessclub_id" />
+                <input name="chessclub_id" id="chessclub_id" required />
               </div>
 
               <Button text="Add" />
