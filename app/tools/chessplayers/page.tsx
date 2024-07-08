@@ -1,80 +1,27 @@
-"use client";
-import Navbar from "@/app/components/navbar";
-import React, { FormEvent, useEffect, useState } from "react";
-import Button from "@/app/components/Button";
-import AddChessplayer from "@/app/lib/add-chessplayer";
-import { redirect } from "next/navigation";
-import { useCookies } from "next-client-cookies";
 
-const Chessplayers = () => 
+import Button from "@/app/components/Button";
+import {redirect} from 'next/navigation'
+import Navbar from "@/app/components/Navbar";
+import { getCookies } from 'next-client-cookies/server';
+import Link from "next/link";
+
+async function getAllChessplayers()
 {
-  const cookies = useCookies();
+  "use server"
+  const response = fetch("http://localhost:3000/api/chessplayers", { cache: "no-store" });
+  return ((await response).json());
+}
+
+export default async function Chessplayers() 
+{
+  const cookies = getCookies();
   if (cookies.get("user-email") == undefined) 
   {
     redirect("/login");
   }
-  const [chessplayerContainer, setchessplayerContainer] = useState<any[]>([]);
 
-  useEffect(() => 
-  {
-    fetch("/api/chessplayers", { cache: "no-store" })
-      .then((res) => res.json())
-      .then((data) => {
-        setchessplayerContainer(data.chessplayers.rows);
-      });
-  }, []);
-
-  const openAddChessplayerForm = () => 
-  {
-    const modal = document.getElementById("addChessplayerModal");
-    if (modal != null) 
-    {
-      modal.style.display = "block";
-    }
-  };
-
-  const closeModal = () => 
-  {
-    const modal = document.getElementById("addChessplayerModal");
-    if (modal != null) {
-      modal.style.display = "none";
-    }
-  };
-
-  const renderBirthYearsOptions = () => 
-  {
-    const options = [];
-
-    for (
-      let i = new Date().getFullYear() - 100;
-      i <= new Date().getFullYear();
-      i++
-    ) {
-      options.push(
-        <option key={i} value={i}>
-          {i}
-        </option>
-      );
-    }
-    return options;
-  };
-
-  const renderGenderOptions = () => 
-  {
-    const options = [];
-    options.push(
-      <option key="male" value="male">
-        Male
-      </option>
-    );
-    options.push(
-      <option key="female" value="female">
-        Female
-      </option>
-    );
-
-    return options;
-  };
+  let chessplayerContainer = await getAllChessplayers();
+  chessplayerContainer = chessplayerContainer.chessplayers.rows;
 
   return (
     <>
@@ -92,8 +39,8 @@ const Chessplayers = () =>
             </tr>
           </thead>
           <tbody>
-            {chessplayerContainer.length > 0 &&
-              chessplayerContainer.map((chessplayer) => (
+          {chessplayerContainer.length > 0 &&
+              chessplayerContainer.map((chessplayer:any) => (
                 <tr key={chessplayer.fideid}>
                   <td>{chessplayer.fideid}</td>
                   <td>{chessplayer.firstname}</td>
@@ -101,59 +48,22 @@ const Chessplayers = () =>
                   <td>{chessplayer.birthyear}</td>
                   <td>{chessplayer.chessclub}</td>
                 </tr>
-              ))}
+              ))}              
           </tbody>
         </table>
 
         <div className="buttonPanel">
-          <Button
-            id="addChessplayer"
-            text="Add a chessplayer"
-            onClick={openAddChessplayerForm}
-          />
-        </div>
+          <Link href='/tools/chessplayers/add'>
+            <Button
+              id="addChessplayer"
+              text="Add a chessplayer"            
+            />
+          </Link>
+        </div>        
 
-        <div id="addChessplayerModal" className="modal">
-          <div className="modal-content">
-            <h2 className="text-3xl font-bold underline center-text">
-              add a chessplayer
-            </h2>
-            <span className="close" onClick={closeModal}>
-              &times;
-            </span>
-            <form action={AddChessplayer}>
-              <div className="row">
-                <label>Fide-id: </label>
-                <input name="chessplayer_id" id="chessplayer_id" required/>
-              </div>
-              <div className="row">
-                <label>Name: </label>
-                <input name="name_id" id="name_id" required/>
-              </div>
-              <div className="row">
-                <label>Birthyear: </label>
-                <select name="birthyear" className="round-corners">
-                  {renderBirthYearsOptions()}
-                </select>
-              </div>
-              <div className="row">
-                <label>Gender: </label>
-                <select name="gender" className="round-corners">
-                  {renderGenderOptions()}
-                </select>
-              </div>
-              <div className="row">
-                <label>Chessclub: </label>
-                <input name="chessclub_id" id="chessclub_id" required />
-              </div>
-
-              <Button text="Add" />
-            </form>
-          </div>
-        </div>
       </div>
     </>
   );
 };
 
-export default Chessplayers;
+

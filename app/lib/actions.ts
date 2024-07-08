@@ -1,12 +1,10 @@
-'use server';
+'use server'
 import { sql } from '@vercel/postgres';
-import { revalidatePath } from 'next/cache';
 import { People, Chessplayer, Chessclub } from './definitions';
-import chessplayerIsValid from './global-functions';
 import { redirect } from 'next/navigation';
 
-export default async function AddChessplayer(formData: FormData)
-{	
+export default async function addChessplayerAction(formData: FormData)
+{
 	let people : People = 
 	{
 		id : -1,
@@ -107,7 +105,7 @@ export default async function AddChessplayer(formData: FormData)
 	{
 		console.log(error);
 	}
-	
-	redirect('/tools/chessplayers');
-}
 
+	redirect('/tools/chessplayers');
+	
+}

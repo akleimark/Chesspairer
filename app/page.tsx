@@ -1,12 +1,13 @@
-"use client"
-import Navbar from "./components/navbar";
+
+import Navbar from "./components/Navbar";
 import { redirect } from "next/navigation";
-import { useCookies } from "next-client-cookies";
+import { getCookies } from 'next-client-cookies/server';
+
 import HomeComponent from '@/app/components/HomeComponent'
 
 export default function Home() 
 {
-  const cookies = useCookies();
+  const cookies = getCookies();
   if (cookies.get("user-email") == undefined) 
   {
     redirect("/login");

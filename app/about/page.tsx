@@ -1,21 +1,15 @@
-"use client"
-import Navbar from "../components/navbar";
-import { useCookies } from "next-client-cookies";
+
+import Navbar from "../components/Navbar";
+import { getCookies } from 'next-client-cookies/server';
 import { redirect } from "next/navigation";
-import { useEffect } from "react";
 
 const About = () => 
 {
-  const cookies = useCookies();
-
-  useEffect(() => 
+  const cookies = getCookies();
+  if (cookies.get("user-email") == undefined) 
   {
-    if (cookies.get("user-email") == undefined) 
-    {
-      redirect("/login");
-    }
-
-  }, [cookies]);
+    redirect("/login");
+  }
   
   return (
     <>

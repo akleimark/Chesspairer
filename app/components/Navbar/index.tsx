@@ -1,26 +1,15 @@
-"use client"
+
 import React from "react";
 import Link from "next/link";
-import { useCookies } from "next-client-cookies";
-import { useRouter, redirect } from "next/navigation";
-
-
+import { getCookies } from 'next-client-cookies/server';
+import { redirect } from "next/navigation";
+import Logo from "./Logo";
 const Navbar = () => 
 {
-  const cookies = useCookies();
-  const router = useRouter();
-
-  const logout = (event : any) =>
-  {
-    cookies.remove('user-email');
-    router.push('/login');
-  }
-
   return (
     <>
       <nav>
-        <div id="logo">Your Logo here</div>
-
+        <Logo />
         <label  className="toggle">Menu</label>
         <input type="checkbox" id="drop" />
             <ul className="menu">
@@ -34,15 +23,9 @@ const Navbar = () =>
                     </ul> 
                 </li>                
                 <li><Link href="/about">About</Link></li>                
-                <li><button id="logout" onClick={logout}>Logout</button></li>
-            </ul>
-            
-        </nav>
-
-        
-        
-            
-          
+                <li><button id="logout">Logout</button></li>
+            </ul>            
+        </nav>  
     </>
   );
 };

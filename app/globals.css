@@ -98,7 +98,6 @@ tr
     margin: 1%;
   	height: 86%;
   	width: 98%;
-  	/*position: absolute;*/
 }
 
 .center-text
@@ -145,83 +144,9 @@ table.fancyTable td
 	height:50px;
 }
 
-.modal 
+form
 {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	width: 100%; 
-	height: 100%; 
-	overflow: auto; 
-}
-
-.modal h2
-{
-	font-variant: small-caps;
-}
-  
-.modal-content 
-{
-	position: relative;
-	margin: 4% auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-	background: #eee;
-  	color: #333;
-}
-
-.modal-content form
-{
-	margin:0 auto;
-	margin:15px 0;
-}
-
-.modal-content form input, .modal-content form textarea, .modal-content form label
-{
-	padding:5px;
-}
-
-.modal-content form input, .modal-content form Button
-{
-	border:1px solid #333;
-}
-
-.modal-content form label
-{
-	width:25%;
-	display: inline-block;
-}
-
-.modal-content .row
-{
-	margin:15px 0;
-}
-
-.modal-content select
-{
-	background:#254441;
-	padding: 5px;
-  	color: #eee;
-}
-
-.close 
-{
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-	position: absolute;
-  	right: 2px;
-  	bottom: -2px;
-}
-  
-.close:hover, .close:focus 
-{
-	text-decoration: none;
-	cursor: pointer;
+	background:#333;
 }
 
 
@@ -239,7 +164,6 @@ Button
 	border-radius: 0;
 	
 }
-
 
 body 
 {
@@ -316,7 +240,7 @@ nav
 #logo 
 {
 	display: block;
-	padding: 0 30px;
+	padding: 5px 30px;
 	float: left;
 	font-size:20px;
 	line-height: 60px;
