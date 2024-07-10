@@ -36,6 +36,7 @@ export default async function Chessplayers()
               <th>Lastname</th>
               <th>Birthyear</th>
               <th>Chessclub</th>
+              <th>Edit</th>
             </tr>
           </thead>
           <tbody>
@@ -47,13 +48,14 @@ export default async function Chessplayers()
                   <td>{chessplayer.lastname}</td>
                   <td>{chessplayer.birthyear}</td>
                   <td>{chessplayer.chessclub}</td>
+                  <td><Link href={`/chessplayers/edit/${chessplayer.fideid}`}>Edit</Link></td>
                 </tr>
               ))}              
           </tbody>
         </table>
 
         <div className="buttonPanel">
-          <Link href='/tools/chessplayers/add'>
+          <Link href='/chessplayers/add'>
             <Button
               id="addChessplayer"
               text="Add a chessplayer"            

@@ -10,9 +10,11 @@ export type People =
 export type Chessplayer = 
 {
     id : number, 
-    people_id : number,
-    federation_id : string
-    chessclub_id : string
+    firstname : string, 
+    lastname : string, 
+    gender : string, 
+    birthyear : number,
+    chessclub_id : string,
 }
 
 export type Chessclub = 

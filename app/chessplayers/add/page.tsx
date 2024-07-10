@@ -1,6 +1,9 @@
 import Navbar from "@/app/components/Navbar"
 import addChessplayerAction from '@/app/lib/actions'
 import Button from "@/app/components/Button";
+import Image from "next/image";
+import Link from "next/link";
+import backArrow from '@/public/back_arrow.png'
 
 const AddChessplayer = () =>
 {
@@ -44,6 +47,7 @@ const AddChessplayer = () =>
         <div className="wrapper">
             <h1 className="text-3xl font-bold underline">add a chessplayer</h1>
             <form className='w-3/4 mx-auto my-10 p-12 relative' action={addChessplayerAction}>
+              <Link href='/chessplayers'><Image alt="Back" src={backArrow} width={50} height={50} /></Link>
                 <div className="m-1">
                     <label className='w-1/4 inline-block'>Fide-id: </label>
                     <input className="text-black p-1" name="chessplayer_id" id="chessplayer_id" required/>

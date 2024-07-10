@@ -3,48 +3,40 @@ import { sql } from '@vercel/postgres';
 import { People, Chessplayer, Chessclub } from './definitions';
 import { redirect } from 'next/navigation';
 
+
+
 export default async function addChessplayerAction(formData: FormData)
 {
-	let people : People = 
-	{
-		id : -1,
-    	firstname : '', 
-    	lastname : '', 
-    	gender : '', 
-    	birthyear : -1
-	}
+	let people_id: number = -1;
+	const federation_id:string = 'Sweden';
 
 	let chessplayer: Chessplayer = 
 	{
-		id : -1,
-    	people_id : -1,
-    	federation_id : 'Sweden',
-    	chessclub_id : ''
+		id : -1,    	
+    	firstname : '', 
+    	lastname : '', 
+    	gender : '', 
+    	birthyear : -1,     	
+    	chessclub_id : '',		
 	}
-
-	let chessclub: Chessclub = 
-	{
-		id : ''
-	}
-
-	people.id = -1;
+	
 	chessplayer.id = +(formData.get('chessplayer_id') as string);
 	const name =  formData.get('name_id') as string;
 	const names = name.split(' ');
-	people.firstname = names[0];
-	people.lastname = "";
+	chessplayer.firstname = names[0];
+	chessplayer.lastname = "";
 	for(let i = 1; i < names.length; i++)
 	{
-		people.lastname += names[i];
+		chessplayer.lastname += names[i];
 		if(i != names.length - 1)
 		{
-			people.lastname += " ";	
+			chessplayer.lastname += " ";	
 		}
 	}
-	people.gender = formData.get('gender') as string;
-	people.birthyear = +(formData.get('birthyear') as string);
-	chessclub.id = formData.get('chessclub_id') as string;
-	chessplayer.federation_id = 'Sweden';
+	chessplayer.gender = formData.get('gender') as string;
+	chessplayer.birthyear = +(formData.get('birthyear') as string);
+	chessplayer.chessclub_id = formData.get('chessclub_id') as string;
+	
 
 	// We check if the chessplayer exist.
 	await fetch('http://localhost:3000/api/chessplayer/' + chessplayer.id, { cache: "no-store" })
@@ -58,7 +50,7 @@ export default async function addChessplayerAction(formData: FormData)
 		}
 	});
 	// We check if the chessclub exists. If not, we create the chessclub.
-	const numberOfChessClubs = (await sql`SELECT 1 FROM chessclubs WHERE id=${chessclub.id};`).rowCount;
+	const numberOfChessClubs = (await sql`SELECT 1 FROM chessclubs WHERE id=${chessplayer.chessclub_id};`).rowCount;
 	if(numberOfChessClubs == 0)
 	{
 		try
@@ -66,7 +58,7 @@ export default async function addChessplayerAction(formData: FormData)
 			await sql
 			`
 				INSERT INTO chessclubs
-				VALUES(${chessclub.id});
+				VALUES(${chessplayer.chessclub_id});
 			`	
 		}
 		catch(error)
@@ -80,12 +72,12 @@ export default async function addChessplayerAction(formData: FormData)
 		const result = await sql
 		`
 			INSERT INTO people(firstname, lastname, birthyear, gender)
-			VALUES(${people.firstname}, ${people.lastname}, ${people.birthyear}, ${people.gender})
+			VALUES(${chessplayer.firstname}, ${chessplayer.lastname}, ${chessplayer.birthyear}, ${chessplayer.gender})
 			RETURNING id;
   		`;
 		  
 		const {id} = result.rows[0]; 
-		people.id = id;
+		people_id = id;
 	}
 	catch(error)
 	{
@@ -98,7 +90,7 @@ export default async function addChessplayerAction(formData: FormData)
 		await sql
 		`
 			INSERT INTO chessplayers(id, chessclub_id, federation_id, people_id)
-			VALUES(${chessplayer.id}, ${chessclub.id}, ${chessplayer.federation_id}, ${people.id});
+			VALUES(${chessplayer.id}, ${chessplayer.chessclub_id}, ${federation_id}, ${people_id});
   		`;		
 	}
 	catch(error)
@@ -106,6 +98,11 @@ export default async function addChessplayerAction(formData: FormData)
 		console.log(error);
 	}
 
-	redirect('/tools/chessplayers');
+	redirect('/chessplayers');
 	
+}
+
+export async function saveChessplayer(formData: FormData)
+{
+	console.log(formData);
 }
