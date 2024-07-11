@@ -7,10 +7,10 @@ export async function GET(request: Request, { params }: { params: { id: number }
 
     const result = await
     sql
-    `   SELECT  c.id, firstname, lastname, birthyear, gender, chessclub_id
+    `   SELECT  c.id as ssfid, f.id as fideid, firstname, lastname, birthyear, gender, chessclub_id
         FROM chessplayers c
-        INNER JOIN people p
-            ON c.people_id = p.id
+        LEFT JOIN fidemembers f
+            ON f.chessplayer_id = c.id
         WHERE c.id=${id}
     `;
 
@@ -20,7 +20,8 @@ export async function GET(request: Request, { params }: { params: { id: number }
         { 
             result: 
             {
-                'id'            : result.rows[0].id,
+                'ssfid'         : result.rows[0].ssfid,
+                'fideid'        : result.rows[0].fideid,
                 'firstname'     : result.rows[0].firstname,
                 'lastname'      : result.rows[0].lastname,
                 'birthyear'     : result.rows[0].birthyear,

@@ -1,20 +1,15 @@
-export type People = 
-{
-    id : number, 
-    firstname : string, 
-    lastname : string, 
-    gender : string, 
-    birthyear : number
-}
+
 
 export type Chessplayer = 
 {
-    id : number, 
+    ssf_id : number, 
+    fide_id: number, 
     firstname : string, 
     lastname : string, 
     gender : string, 
     birthyear : number,
     chessclub_id : string,
+    federation: string
 }
 
 export type Chessclub = 

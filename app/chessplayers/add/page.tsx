@@ -4,6 +4,9 @@ import Button from "@/app/components/Button";
 import Image from "next/image";
 import Link from "next/link";
 import backArrow from '@/public/back_arrow.png'
+import { Open_Sans } from "next/font/google";
+
+const openSand = Open_Sans({subsets: ["latin"]})
 
 const AddChessplayer = () =>
 {
@@ -44,13 +47,17 @@ const AddChessplayer = () =>
     return (
        <>
         <Navbar />
-        <div className="wrapper">
+        <div className={`wrapper ${openSand.className}`}>
             <h1 className="text-3xl font-bold underline">add a chessplayer</h1>
             <form className='w-3/4 mx-auto my-10 p-12 relative' action={addChessplayerAction}>
               <Link href='/chessplayers'><Image alt="Back" src={backArrow} width={50} height={50} /></Link>
                 <div className="m-1">
-                    <label className='w-1/4 inline-block'>Fide-id: </label>
-                    <input className="text-black p-1" name="chessplayer_id" id="chessplayer_id" required/>
+                    <label className='w-1/4 inline-block'>SSF-id: </label>
+                    <input className="text-black p-1" name="ssf_id" id="ssf_id" required/>
+                </div>
+                <div className="m-1">
+                    <label className='w-1/4 inline-block'>FIDE-id: </label>
+                    <input className="text-black p-1" name="fide_id" id="fide_id"/>
                 </div>
                 <div className="m-1">
                 <label className='w-1/4 inline-block'>Name: </label>

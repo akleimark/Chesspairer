@@ -6,14 +6,14 @@ export async function GET()
 {
   const chessplayers = await 
   sql
-    ` SELECT  c.id as fideId, 
-              p.firstname as firstname, 
-              p.lastname as lastname, 
-              p.birthyear as birthyear, 
+    ` SELECT  c.id as ssfid, f.id as fideid,  
+              c.firstname as firstname, 
+              c.lastname as lastname, 
+              c.birthyear as birthyear, 
               cc.id as chessclub
-              FROM people p
-              INNER join chessplayers c
-                ON c.people_id=p.id
+              FROM chessplayers c
+              LEFT join fidemembers f
+                ON f.chessplayer_id=c.id
               INNER join chessclubs cc
                 ON cc.id=c.chessclub_id
               ORDER BY lastname                                          

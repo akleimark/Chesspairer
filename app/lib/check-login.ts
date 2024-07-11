@@ -31,11 +31,6 @@ export default async function CheckLogin(formData: FormData)
     else
     {
         console.log("Login incorrect.");
-    }
-    
-
-    
-
-	//revalidatePath('/tools/chessplayers');
+    }    
 }
 

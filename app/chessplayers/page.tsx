@@ -8,8 +8,16 @@ import Link from "next/link";
 async function getAllChessplayers()
 {
   "use server"
-  const response = fetch("http://localhost:3000/api/chessplayers", { cache: "no-store" });
-  return ((await response).json());
+  try
+  {
+    const response = fetch("http://localhost:3000/api/chessplayers", { cache: "no-store" });
+    return ((await response).json());
+  }
+  catch(error)
+  {
+    
+  }
+  
 }
 
 export default async function Chessplayers() 
@@ -42,13 +50,13 @@ export default async function Chessplayers()
           <tbody>
           {chessplayerContainer.length > 0 &&
               chessplayerContainer.map((chessplayer:any) => (
-                <tr key={chessplayer.fideid}>
-                  <td>{chessplayer.fideid}</td>
+                <tr key={chessplayer.ssfid}>
+                  <td>{chessplayer.ssfid}</td>
                   <td>{chessplayer.firstname}</td>
                   <td>{chessplayer.lastname}</td>
                   <td>{chessplayer.birthyear}</td>
                   <td>{chessplayer.chessclub}</td>
-                  <td><Link href={`/chessplayers/edit/${chessplayer.fideid}`}>Edit</Link></td>
+                  <td><Link href={`/chessplayers/edit/${chessplayer.ssfid}`}>Edit</Link></td>
                 </tr>
               ))}              
           </tbody>

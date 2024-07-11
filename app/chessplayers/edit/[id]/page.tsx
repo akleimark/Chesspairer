@@ -20,6 +20,7 @@ const EditChessplayer = () =>
     setChessplayerName(event.target.value);
   };
 
+  const [fideId, setFideId] = useState(-1);
   const [chessplayerName, setChessplayerName] = useState('');
   const [chessplayerGender, setChessplayerGender] = useState('');
   const [chessplayerBirthyear, setChessplayerBirthyear] = useState(1900);
@@ -27,14 +28,14 @@ const EditChessplayer = () =>
   const params = useParams();
 
   useEffect(() => {
-    fetch(`/api/chessplayer/${params.id}`)
+    fetch(`/api/chessplayer/${params.id}`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
+        setFideId(data.result.fideid);
         setChessplayerName(data.result.firstname + ' ' + data.result.lastname);
         setChessplayerGender(data.result.gender);
         setChessplayerBirthyear(data.result.birthyear);        
-        setChessclub(data.result.chessclub_id);
-        console.log(data.result);
+        setChessclub(data.result.chessclub_id);        
       });
   }, [params]);
 
@@ -102,15 +103,33 @@ const EditChessplayer = () =>
         <form className="w-3/4 mx-auto my-10 p-12 relative" action={saveChessplayer}>
           <Link href='/chessplayers'><Image alt="Back" src={backArrow} width={50} height={50} /></Link>
           <div className="m-1">
-            <label className="w-1/4 inline-block">Fide-id: </label>
-            <input type="hidden" name="chessplayer_id" value={params.id} />              
+            <label className="w-1/4 inline-block">SSF-id: </label>
+            <input type="hidden" name="ssf_id" value={params.id} />                          
             <input
               value={params.id}
               className="text-black p-1"
-              name="chessplayer_id"
-              id="chessplayer_id"
+              name="ssf_id"
+              id="ssf_id"
               disabled
-            />
+            />        
+          </div>                
+          <div className="m-1">
+            <label className="w-1/4 inline-block">Fide-id: </label>                        
+            {fideId != null && 
+            <input
+              value={fideId}
+              className="text-black p-1"
+              name="fide_id"
+              id="fide_id"
+              disabled
+            />}
+            {fideId == null && 
+            <input
+              value={fideId}
+              className="text-black p-1"
+              name="fide_id"
+              id="fide_id"              
+            />}
           </div>
           <div className="m-1">
             <label className="w-1/4 inline-block">Name: </label>
