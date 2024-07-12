@@ -15,6 +15,11 @@ const Navbar = () =>
                     </Link>
                 </li>
                 <li>
+                    <Link className="text-white opacity-70 hover:opacity-100 duration-300" href="/tournaments">
+                      Tournaments
+                    </Link>
+                </li>
+                <li>
                     <Link className="text-white opacity-70 hover:opacity-100 duration-300" href="/chessplayers">
                       Chessplayers
                     </Link>

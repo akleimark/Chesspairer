@@ -3,6 +3,9 @@ DROP TABLE IF EXISTS chessplayers cascade;
 DROP TABLE IF EXISTS federations cascade;
 DROP TABLE EXISTS users cascade;
 DROP TABLE EXISTS ratings cascade;
+DROP TABLE EXISTS tournaments cascade;
+
+
 
 CREATE TABLE federations(id VARCHAR(255) PRIMARY KEY);
 CREATE TABLE chessclubs(id VARCHAR(255) PRIMARY KEY);
@@ -11,9 +14,10 @@ CREATE TABLE chessplayers (id INTEGER PRIMARY KEY, firstname VARCHAR(255) NOT NU
 birthyear SMALLINT NOT NULL, chessclub_id VARCHAR(255) NOT NULL, federation_id VARCHAR(255) NOT NULL, 
 FOREIGN KEY(chessclub_id) REFERENCES chessclubs(id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(federation_id) REFERENCES federations(id) ON DELETE CASCADE ON UPDATE CASCADE);
 
-CREATE TABLE people(id SERIAL PRIMARY KEY, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, birthyear SMALLINT NOT NULL, gender VARCHAR(8) NOT NULL DEFAULT 'male');
-CREATE TABLE users(email VARCHAR(255) PRIMARY KEY, password VARCHAR(255) NOT NULL, people_id INTEGER NOT NULL, FOREIGN KEY(people_id) REFERENCES people(id) ON DELETE CASCADE ON UPDATE CASCADE);
+CREATE TABLE users(email VARCHAR(255) PRIMARY KEY, password VARCHAR(255) NOT NULL, chessplayer_id INTEGER NOT NULL, FOREIGN KEY(chessplayer_id) REFERENCES chessplayers(id) ON DELETE CASCADE ON UPDATE CASCADE);
+CREATE TABLE fidemembers(id INTEGER PRIMARY KEY, chessplayer_id INTEGER NOT NULL, FOREIGN KEY(chessplayer_id) REFERENCES chessplayers(id) ON DELETE CASCADE ON UPDATE CASCADE);
 
+CREATE TABLE tournaments(name VARCHAR(255) NOT NULL, user_email VARCHAR(255) NOT NULL, pairingsystem VARCHAR(255) NOT NULL, number_of_rounds SMALLINT NOT NULL, startdate DATE NOT NULL, enddate DATE NOT NULL, 
+PRIMARY KEY(user_email, name), FOREIGN KEY(user_email) REFERENCES users(email) ON DELETE CASCADE ON UPDATE CASCADE);
 
-
-$2a$10$UKiK/iohXD4KdCz2S.wwkupPsJpQuIZQJ6Y6yYqBkzOJxlkHr5TkO
+CREATE INDEX tournament_index ON tournaments(user_email, name);
