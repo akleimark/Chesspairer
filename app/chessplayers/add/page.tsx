@@ -1,6 +1,5 @@
 import Navbar from "@/app/components/Navbar"
 import addChessplayerAction from '@/app/lib/actions'
-import Button from "@/app/components/Button";
 import Image from "next/image";
 import Link from "next/link";
 import backArrow from '@/public/back_arrow.png'
@@ -65,13 +64,13 @@ const AddChessplayer = () =>
               </div>
               <div className="m-1">
                 <label className='w-1/4 inline-block'>Birthyear: </label>
-                <select name="birthyear" className="text-black w-1/6">
+                <select name="birthyear" className="text-black w-1/6 p-1">
                   {renderBirthYearsOptions()}
                 </select>
               </div>
               <div className="m-1">
                 <label className='w-1/4 inline-block'>Gender: </label>
-                <select name="gender" className="text-black w-1/6">
+                <select name="gender" className="text-black w-1/6 p-1">
                   {renderGenderOptions()}
                 </select>
               </div>
@@ -79,7 +78,7 @@ const AddChessplayer = () =>
                 <label className='w-1/4 inline-block'>Chessclub: </label>
                 <input className="text-black p-1" name="chessclub_id" id="chessclub_id" required />
               </div>
-              <div className="my-4"><Button text="Add" /></div>
+              <div className="my-4"><button>Add</button></div>
             </form>
         </div>
        </>

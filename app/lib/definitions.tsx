@@ -35,11 +35,12 @@ export type Result =
 
 export type Tournament = 
 {
-    user_email: string, 
+    id?: number, 
+    user_email: string | undefined, 
     name: string,
     pairingsystem: string, 
     number_of_rounds: number,
-    startdate: Date,
-    enddate: Date,
+    startdate: string,
+    enddate: string,
     results? : Result
 }

@@ -1,5 +1,4 @@
 
-import Button from "@/app/components/Button";
 import {redirect} from 'next/navigation'
 import Navbar from "@/app/components/Navbar";
 import { getCookies } from 'next-client-cookies/server';
@@ -64,10 +63,8 @@ export default async function Chessplayers()
 
         <div className="buttonPanel">
           <Link href='/chessplayers/add'>
-            <Button
-              id="addChessplayer"
-              text="Add a chessplayer"            
-            />
+            <button
+              id="addChessplayer">Add a chessplayer</button>                          
           </Link>
         </div>        
 

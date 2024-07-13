@@ -17,7 +17,11 @@ FOREIGN KEY(chessclub_id) REFERENCES chessclubs(id) ON DELETE CASCADE ON UPDATE 
 CREATE TABLE users(email VARCHAR(255) PRIMARY KEY, password VARCHAR(255) NOT NULL, chessplayer_id INTEGER NOT NULL, FOREIGN KEY(chessplayer_id) REFERENCES chessplayers(id) ON DELETE CASCADE ON UPDATE CASCADE);
 CREATE TABLE fidemembers(id INTEGER PRIMARY KEY, chessplayer_id INTEGER NOT NULL, FOREIGN KEY(chessplayer_id) REFERENCES chessplayers(id) ON DELETE CASCADE ON UPDATE CASCADE);
 
-CREATE TABLE tournaments(name VARCHAR(255) NOT NULL, user_email VARCHAR(255) NOT NULL, pairingsystem VARCHAR(255) NOT NULL, number_of_rounds SMALLINT NOT NULL, startdate DATE NOT NULL, enddate DATE NOT NULL, 
-PRIMARY KEY(user_email, name), FOREIGN KEY(user_email) REFERENCES users(email) ON DELETE CASCADE ON UPDATE CASCADE);
+CREATE TABLE tournaments(id BIGSERIAL PRIMARY KEY, name VARCHAR(255) NOT NULL, user_email VARCHAR(255) NOT NULL, pairingsystem VARCHAR(255) NOT NULL, 
+number_of_rounds SMALLINT NOT NULL, startdate DATE NOT NULL, enddate DATE NOT NULL, 
+FOREIGN KEY(user_email) REFERENCES users(email) ON DELETE CASCADE ON UPDATE CASCADE);
 
-CREATE INDEX tournament_index ON tournaments(user_email, name);
+
+CREATE TABLE results(tournament_id BIGINT NOT NULL, white INTEGER NOT NULL, black INTEGER NOT NULL, round_number SMALLINT NOT NULL, result VARCHAR(32) NOT NULL, 
+PRIMARY KEY(tournament_id, white, black, round_number), FOREIGN KEY(white) REFERENCES chessplayers(id) ON DELETE CASCADE ON UPDATE CASCADE, 
+FOREIGN KEY(black) REFERENCES chessplayers(id) ON DELETE CASCADE ON UPDATE CASCADE);

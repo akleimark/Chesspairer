@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
 import { sql } from '@vercel/postgres';
 
-export async function GET(request: Request, { params }: { params: { user: string } })
+export async function POST(request: Request, { params }: { params: { user: string } })
 {
-    const {user} = params;
-    console.log(user);
-    return NextResponse.json({ result: user }, { status: 200 });  
+    //const {user} = params;
+    const body = await request.json()
+    console.log(body)
+
+
+    return NextResponse.json({ result: 'test' }, { status: 200 });  
 }

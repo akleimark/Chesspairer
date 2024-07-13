@@ -1,7 +1,8 @@
 'use server'
 import { sql } from '@vercel/postgres';
-import { Chessplayer, Chessclub } from './definitions';
+import { Chessplayer, Chessclub, Tournament} from './definitions';
 import { redirect } from 'next/navigation';
+import { getCookies } from 'next-client-cookies/server';
 
 export default async function addChessplayerAction(formData: FormData)
 {
@@ -91,7 +92,6 @@ export default async function addChessplayerAction(formData: FormData)
 			VALUES(${chessplayer.fide_id}, ${chessplayer.ssf_id});
   		`;		
 	}
-	
 	redirect('/chessplayers');
 }
 
@@ -209,8 +209,6 @@ export async function saveChessplayer(formData: FormData)
 		chessclub_id: formData.get('chessclub_id') as string,
 		federation : 'Sweden'
 	}
-
-	console.log(chessplayer);
 	
 	if(chessplayer.chessclub_id.length < 2)
 	{
@@ -222,7 +220,120 @@ export async function saveChessplayer(formData: FormData)
 	}
 	createChessclubIfNotExists(chessplayer.chessclub_id);	
 	updateChessplayerData(chessplayer);
-
 	redirect('/chessplayers');
+}
+
+export async function newTournamentAction(prevState: any, formData: FormData)
+{
+	let message = '';
 	
+	const cookies = getCookies();
+	let tournament : Tournament = 
+	{
+		user_email : cookies.get('user-email'),
+		name: formData.get('tournament_name') as string,
+		pairingsystem: formData.get('tournament_pairingsystem') as string, 
+    	number_of_rounds: +(formData.get('number_of_rounds') as string) ,
+    	startdate: formData.get('tournament_startdate') as string,
+    	enddate: formData.get('tournament_enddate') as string,
+	}
+
+	if(tournament.name.length < 2)
+	{
+		message = 'Tournament name must be at least two characters.';		
+	}
+	else if(new Date(tournament.enddate) < new Date(tournament.startdate))
+	{
+		message = 'The enddate cannot be greater than the startdate.';		
+	}
+
+	try
+	{
+		await sql
+		`
+			INSERT INTO tournaments(name, user_email, pairingsystem, number_of_rounds, startdate, enddate)
+			VALUES(${formData.get('tournament_name') as string}, ${tournament.user_email}, ${tournament.pairingsystem}, ${tournament.number_of_rounds}, ${tournament.startdate}, ${tournament.enddate});				
+		`	
+	}
+	catch(error)
+	{
+		message = 'There was an error. Please try again.'
+	}
+	
+	if(message == '')
+	{
+		redirect('/tournaments');
+	}
+	return {		
+		message: message,
+	}
+}
+
+export async function saveTournamentAction(prevState: any, formData: FormData)
+{
+	let message = '';
+	
+	const cookies = getCookies();
+	let tournament : Tournament = 
+	{
+		user_email : cookies.get('user-email'),
+		name: formData.get('tournament_name') as string,
+		pairingsystem: formData.get('tournament_pairingsystem') as string, 
+    	number_of_rounds: +(formData.get('number_of_rounds') as string) ,
+    	startdate: formData.get('tournament_startdate') as string,
+    	enddate: formData.get('tournament_enddate') as string,
+	}
+
+	if(tournament.name.length < 2)
+	{
+		message = 'Tournament name must be at least two characters.';		
+	}
+	else if(new Date(tournament.enddate) < new Date(tournament.startdate))
+	{
+		message = 'The enddate cannot be greater than the startdate.';		
+	}
+
+	try
+	{
+		await sql
+		`
+			UPDATE tournaments
+			SET	name=${tournament.name}
+			,	pairingsystem=${tournament.pairingsystem}
+			,	number_of_rounds=${tournament.number_of_rounds}
+			,	startdate=${tournament.startdate}
+			,	enddate=${tournament.enddate}
+			WHERE id=${formData.get('tournament_id') as string};
+		`	
+	}
+	catch(error)
+	{
+		message = 'There was an error. Please try again.'
+	}
+	
+	if(message == '')
+	{
+		redirect('/tournaments');
+	}
+	return {		
+		message: message,
+	}
+}
+
+export async function deleteTournamentAction(id: number)
+{
+	try
+	{
+		await sql
+		`
+			DELETE FROM tournaments
+			where id=${id};
+		`
+		redirect('/tournaments');			
+	}
+	catch(error)
+	{
+		console.log(error);
+
+	}
 }

@@ -9,7 +9,8 @@ export async function GET(request: Request, { params }: { params: { user: string
     const result = await
     sql
     `   
-        SELECT      t.name 
+        SELECT      t.id      
+            ,       t.name 
             ,       t.pairingsystem
             ,       t.number_of_rounds
             ,       t.startdate

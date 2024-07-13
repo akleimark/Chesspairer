@@ -2,7 +2,6 @@
 import { useParams } from "next/navigation";
 import Navbar from "@/app/components/Navbar";
 import { useEffect, useState, ChangeEvent } from "react";
-import Button from "@/app/components/Button";
 import { saveChessplayer } from "@/app/lib/actions";
 import Image from "next/image";
 import Link from "next/link";
@@ -166,7 +165,7 @@ const EditChessplayer = () =>
             />
           </div>
           <div className="my-4">
-            <Button text="Save" />
+            <button>Save</button>
           </div>
         </form>
       </div>
