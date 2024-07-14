@@ -2,7 +2,6 @@
 import { sql } from '@vercel/postgres';
 import { Chessplayer, Chessclub, Tournament} from './definitions';
 import { redirect } from 'next/navigation';
-import { getCookies } from 'next-client-cookies/server';
 
 export default async function addChessplayerAction(formData: FormData)
 {
@@ -227,10 +226,10 @@ export async function newTournamentAction(prevState: any, formData: FormData)
 {
 	let message = '';
 	
-	const cookies = getCookies();
+	//const cookies = getCookies();
 	let tournament : Tournament = 
 	{
-		user_email : cookies.get('user-email'),
+		user_email : 'akleimark@gmail.com',
 		name: formData.get('tournament_name') as string,
 		pairingsystem: formData.get('tournament_pairingsystem') as string, 
     	number_of_rounds: +(formData.get('number_of_rounds') as string) ,
@@ -273,10 +272,10 @@ export async function saveTournamentAction(prevState: any, formData: FormData)
 {
 	let message = '';
 	
-	const cookies = getCookies();
+	//const cookies = getCookies();
 	let tournament : Tournament = 
 	{
-		user_email : cookies.get('user-email'),
+		user_email : 'akleimark@gmail.com',
 		name: formData.get('tournament_name') as string,
 		pairingsystem: formData.get('tournament_pairingsystem') as string, 
     	number_of_rounds: +(formData.get('number_of_rounds') as string) ,

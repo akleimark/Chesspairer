@@ -1,15 +1,15 @@
 
 import {redirect} from 'next/navigation'
 import Navbar from "@/app/components/Navbar";
-import { getCookies } from 'next-client-cookies/server';
 import Link from "next/link";
+import { Chessplayer } from '../lib/definitions';
 
 async function getAllChessplayers()
 {
   "use server"
   try
   {
-    const response = fetch("http://localhost:3000/api/chessplayers", { cache: "no-store" });
+    const response:any = await fetch("http://localhost:3000/api/chessplayers", { cache: "no-store" });
     return ((await response).json());
   }
   catch(error)
@@ -21,15 +21,9 @@ async function getAllChessplayers()
 
 export default async function Chessplayers() 
 {
-  const cookies = getCookies();
-  if (cookies.get("user-email") == undefined) 
-  {
-    redirect("/login");
-  }
 
-  let chessplayerContainer = await getAllChessplayers();
-  chessplayerContainer = chessplayerContainer.chessplayers.rows;
-
+  const chessplayerContainer : any = await getAllChessplayers();
+  
   return (
     <>
       <Navbar />
@@ -47,15 +41,15 @@ export default async function Chessplayers()
             </tr>
           </thead>
           <tbody>
-          {chessplayerContainer.length > 0 &&
-              chessplayerContainer.map((chessplayer:any) => (
-                <tr key={chessplayer.ssfid}>
-                  <td>{chessplayer.ssfid}</td>
+          {chessplayerContainer &&
+              chessplayerContainer.chessplayers.rows.map((chessplayer:Chessplayer) => (
+                <tr key={chessplayer.ssf_id}>
+                  <td>{chessplayer.ssf_id}</td>
                   <td>{chessplayer.firstname}</td>
                   <td>{chessplayer.lastname}</td>
                   <td>{chessplayer.birthyear}</td>
-                  <td>{chessplayer.chessclub}</td>
-                  <td><Link href={`/chessplayers/edit/${chessplayer.ssfid}`}>Edit</Link></td>
+                  <td>{chessplayer.chessclub_id}</td>
+                  <td><Link href={`/chessplayers/edit/${chessplayer.ssf_id}`}>Edit</Link></td>
                 </tr>
               ))}              
           </tbody>

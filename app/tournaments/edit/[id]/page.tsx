@@ -6,7 +6,6 @@ import { saveTournamentAction, deleteTournamentAction } from "@/app/lib/actions"
 import Image from "next/image";
 import Link from "next/link";
 import backArrow from "@/public/back_arrow.png";
-import { useCookies } from "next-client-cookies";
 import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";
 
@@ -16,7 +15,6 @@ const initialState = {
 
 const EditTournament = () => {
   const [state, formAction] = useFormState(saveTournamentAction, initialState);
-  const cookies = useCookies();
   const params = useParams();
   const router = useRouter();
 
@@ -84,17 +82,18 @@ const EditTournament = () => {
     fetch(`/api/tournament/${params.id}`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
-        if (cookies.get("user-email") == data.result.user_email) {
+       // if (true) {
           setTournamentName(data.result.name);
           setStartdate(data.result.startdate);
           setEnddate(data.result.enddate);
           setNumberOfRounds(data.result.number_of_rounds);
           setPairingsystem(data.result.pairingsystem);
-        } else {
-          router.push("/tournaments");
-        }
+       // } 
+        //else {
+          //router.push("/tournaments");
+        //}
       });
-  }, [params, cookies, router]);
+  }, [params, router]);
 
   return (
     <>

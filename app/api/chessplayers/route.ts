@@ -1,23 +1,24 @@
 import { NextResponse } from "next/server";
 import { sql } from '@vercel/postgres';
 
-export const dynamic = 'force-dynamic';
+//export const dynamic = 'force-dynamic';
 export async function GET()
 {
-  const chessplayers = await 
+  let chessplayers:any = await 
   sql
-    ` SELECT  c.id as ssfid, f.id as fideid,  
+    ` SELECT  c.id as ssf_id, f.id as fide_id,  
               c.firstname as firstname, 
               c.lastname as lastname, 
               c.birthyear as birthyear, 
-              cc.id as chessclub
+              cc.id as chessclub_id
               FROM chessplayers c
               LEFT join fidemembers f
                 ON f.chessplayer_id=c.id
               INNER join chessclubs cc
                 ON cc.id=c.chessclub_id
               ORDER BY lastname                                          
-              ;`;
-  return NextResponse.json({ chessplayers }, { status: 200 });  
+              ;`;                    
+
+  return NextResponse.json({ chessplayers}, { status: 200 });  
 }
 

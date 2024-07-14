@@ -1,6 +1,6 @@
 
 import Navbar from "../components/Navbar";
-import { getCookies } from 'next-client-cookies/server';
+
 import { redirect } from "next/navigation";
 import { Open_Sans } from "next/font/google";
 import Image from "next/image";
@@ -11,11 +11,7 @@ const openSand = Open_Sans({subsets: ["latin"]})
 
 const About = () => 
 {
-  const cookies = getCookies();
-  if (cookies.get("user-email") == undefined) 
-  {
-    redirect("/login");
-  }
+  
   
   return (
     <>

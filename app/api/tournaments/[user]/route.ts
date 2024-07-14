@@ -4,9 +4,7 @@ import { sql } from '@vercel/postgres';
 export async function GET(request: Request, { params }: { params: { user: string } })
 {
     const {user} = params;
-    console.log(user);
-
-    const result = await
+    const tournaments = await
     sql
     `   
         SELECT      t.id      
@@ -19,5 +17,5 @@ export async function GET(request: Request, { params }: { params: { user: string
             WHERE   t.user_email=${user};               
     `;
     
-    return NextResponse.json({ result: result.rows }, { status: 200 });  
+    return NextResponse.json({ tournaments }, { status: 200 });  
 }

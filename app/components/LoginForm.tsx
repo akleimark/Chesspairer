@@ -1,12 +1,12 @@
 "use client"
 import { redirect, useRouter } from "next/navigation";
 import { FormEvent } from 'react'
-import { useCookies } from 'next-client-cookies';
+
 
 
 const LoginForm = () =>
 {
-  const cookies = useCookies();
+
   const router = useRouter();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>)
@@ -25,7 +25,7 @@ const LoginForm = () =>
     
     if(response.status == 200) 
     {
-      cookies.set('user-email', email);            
+      //cookies.set('user-email', email);            
       router.push('/');
     } 
    

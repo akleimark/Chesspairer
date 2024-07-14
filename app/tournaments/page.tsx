@@ -1,20 +1,20 @@
 import Navbar from "../components/Navbar";
-import { getCookies } from "next-client-cookies/server";
 import { Open_Sans } from "next/font/google";
 import { Tournament } from "../lib/definitions";
 import Link from "next/link";
 
 const openSand = Open_Sans({ subsets: ["latin"] });
-const cookies = getCookies();
-const userId: string | undefined = cookies.get('user-email');
+
+const userId: string = "akleimark@gmail.com";
 
 async function getAllUserTournaments()
 {
   "use server"
   try
   {
-    const response = fetch(`http://localhost:3000/api/tournaments/${userId}`, { cache: "no-store" });
+    const response:any = await fetch(`http://localhost:3000/api/tournaments/${userId}`, { cache: "no-store" });
     return ((await response).json());
+
   }
   catch(error)
   {
@@ -24,10 +24,8 @@ async function getAllUserTournaments()
 
 export default async function TournamentPage()
 {
-    let tournaments = await getAllUserTournaments();
-    console.log(tournaments);
-    tournaments = tournaments.result;
-
+  const tournaments : any = await getAllUserTournaments();
+    
     return (
     <>
       <Navbar />
@@ -46,18 +44,19 @@ export default async function TournamentPage()
             </tr>
           </thead>
           <tbody>
-          {tournaments.length > 0 &&
-              tournaments.map((tournament:Tournament, index : number) => (
-                <tr key={tournament.id}>                  
-                  <td>{index + 1}</td>
+          {tournaments &&
+              tournaments.tournaments.rows.map((tournament:Tournament) => (
+                <tr key={tournament.id}>
+                  <td>{tournament.id}</td>
                   <td>{tournament.name}</td>
                   <td>{tournament.pairingsystem}</td>
-                  <td>{tournament.number_of_rounds}</td>    
+                  <td>{tournament.number_of_rounds}</td>
                   <td>{tournament.startdate}</td>
-                  <td>{tournament.enddate}</td>              
-                  <td><Link href={`/tournaments/edit/${tournament.id}`}>Edit</Link></td>                        
+                  <td>{tournament.enddate}</td>
+                  <td><Link href={`/tournaments/edit/${tournament.id}`}>Edit</Link></td>
                 </tr>
-              ))}                 
+              ))}   
+                         
           </tbody>
         </table>
 
