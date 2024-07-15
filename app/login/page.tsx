@@ -1,21 +1,16 @@
-'use client'
 
 import LoginForm from '@/app/components/LoginForm';
-import { redirect, useRouter } from "next/navigation";
 
 const Login = () =>
 { 
-  
   return (
     <>
       <div className="wrapper">
         <h1 className="text-3xl font-bold underline">login</h1>
         <LoginForm />
-      </div>
-      
+      </div>    
     </>
   );
-
 }
 
 export default Login;

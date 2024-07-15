@@ -1,8 +1,8 @@
 
-import {redirect} from 'next/navigation'
 import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
 import { Chessplayer } from '../lib/definitions';
+
 
 async function getAllChessplayers()
 {
@@ -21,7 +21,6 @@ async function getAllChessplayers()
 
 export default async function Chessplayers() 
 {
-
   const chessplayerContainer : any = await getAllChessplayers();
   
   return (

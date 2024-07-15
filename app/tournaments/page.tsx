@@ -2,10 +2,14 @@ import Navbar from "../components/Navbar";
 import { Open_Sans } from "next/font/google";
 import { Tournament } from "../lib/definitions";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const openSand = Open_Sans({ subsets: ["latin"] });
 
-const userId: string = "akleimark@gmail.com";
+const cookieStore = cookies();
+const userId = cookieStore.get('user-email')?.value;
+
 
 async function getAllUserTournaments()
 {

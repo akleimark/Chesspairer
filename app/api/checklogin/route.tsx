@@ -1,7 +1,4 @@
-import { NextResponse } from "next/server";
-import {User} from '@/app/lib/definitions'
-import bcrypt from 'bcrypt';
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
 
 async function isValidEmail(email : string)
@@ -10,19 +7,18 @@ async function isValidEmail(email : string)
     return emailPattern.test(email);
 }
 
-export async function POST(request : Request, response : Response)
+export async function POST(request: NextRequest, response: NextResponse)
 {
     const {email, password} = await request.json();
-    
+
     const result = await 
     sql
     `   SELECT password
         FROM users 
         WHERE email=${email};
     `;        
-    const rows = result.rowCount;
-    
-    if(rows == 0 || !isValidEmail(email) || !bcrypt.compareSync(password, result.rows[0].password))
+
+    if(result.rowCount == 0 || !isValidEmail(email) || password != result.rows[0].password)
     {
         return NextResponse.json(
         {
@@ -30,14 +26,16 @@ export async function POST(request : Request, response : Response)
         },
         { 
             status: 400 
-        });      
-    }
+        });    
 
+    }
     return NextResponse.json(
     {
         result: "Okej",
     },
     { 
         status: 200 
-    });   
-}
+    });      
+      
+} 
+    

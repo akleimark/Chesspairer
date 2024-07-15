@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 import { sql } from '@vercel/postgres';
 
-//export const dynamic = 'force-dynamic';
-export async function GET()
+export async function GET(request: Request, response: Response)
 {
-  let chessplayers:any = await 
+  const chessplayers = await 
   sql
     ` SELECT  c.id as ssf_id, f.id as fide_id,  
               c.firstname as firstname, 
@@ -17,7 +16,7 @@ export async function GET()
               INNER join chessclubs cc
                 ON cc.id=c.chessclub_id
               ORDER BY lastname                                          
-              ;`;                    
+      ;`;                    
 
   return NextResponse.json({ chessplayers}, { status: 200 });  
 }
