@@ -14,7 +14,7 @@ async function getAllChessplayers()
   }
   catch(error)
   {
-    
+    console.log(error);
   }
   
 }

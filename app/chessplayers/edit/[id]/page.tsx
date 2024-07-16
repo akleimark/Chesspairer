@@ -99,7 +99,7 @@ const EditChessplayer = () =>
       <Navbar />
       <div className="wrapper">
         <h1 className="text-3xl font-bold underline">edit a chessplayer</h1>
-        <form className="w-3/4 mx-auto my-10 p-12 relative" action={saveChessplayer}>
+        <form className="w-3/4 mx-auto my-10 p-12 relative b-333" action={saveChessplayer}>
           <Link href='/chessplayers'><Image alt="Back" src={backArrow} width={50} height={50} /></Link>
           <div className="m-1">
             <label className="w-1/4 inline-block">SSF-id: </label>

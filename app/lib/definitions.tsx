@@ -35,7 +35,7 @@ export type Result =
 
 export type Tournament = 
 {
-    id?: number, 
+    id?: number | undefined, 
     user_email: string | undefined, 
     name: string,
     pairingsystem: string, 
