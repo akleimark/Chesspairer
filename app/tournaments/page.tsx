@@ -3,8 +3,13 @@ import { Open_Sans } from "next/font/google";
 import { Tournament } from "../lib/definitions";
 import Link from "next/link";
 import { cookies } from "next/headers";
+import Image from "next/image";
+import selectedImage from "@/public/selected.png";
+import plusSign from "@/public/plus-sign.png";
 
 const openSand = Open_Sans({ subsets: ["latin"] });
+const iconWidth : number = 20;
+const iconHeight : number = 20;
 
 async function getAllUserTournaments()
 {
@@ -49,19 +54,20 @@ const renderSelectTournamentRow = (id : number | undefined) =>
     {(selectedTournament == -1 || selectedTournament != id) && 
     <form action={selectTournament}>
       <input type="hidden" name="selected_tournament" value={id} />
-      <button type="submit">
-        Select
+      <button type="submit" className="fake-link">
+        <Image className="my-0 mx-auto" src={plusSign} alt="select" width={iconWidth} height={iconHeight}/> 
       </button>
     </form>
     }
     {
-      (selectedTournament == id) && 
-      <span className='italic'>selected</span>
+      (selectedTournament == id) &&       
+      <button type="button" className="fake-link">
+        <Image className="my-0 mx-auto" src={selectedImage} alt="selected" width={iconWidth} height={iconHeight}/> 
+      </button>
     }
     </>
   )
 }
-
 
 export default async function TournamentPage()
 {  
@@ -96,15 +102,13 @@ export default async function TournamentPage()
                   <td><Link href={`/tournaments/edit/${tournament.id}`}>Edit</Link></td>
                   <td>{renderSelectTournamentRow(tournament.id)}</td>
                 </tr>
-              ))}   
-                         
+              ))}                            
           </tbody>
         </table>
-
         <div className="buttonPanel">
           <Link href='/tournaments/add'>
             <button
-              id="addTournament">New tournament</button>
+              id="addTournament"><Image className="my-0 mx-auto" src={plusSign} alt="New tournament" width={20} height={20}/></button>
           </Link>
         </div> 
       </div>

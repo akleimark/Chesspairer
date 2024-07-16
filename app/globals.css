@@ -127,6 +127,11 @@ table.fancyTable td
 	padding: 3px;
 }
 
+.no-border
+{
+	border:none;
+}
+
 .buttonPanel
 {
 	position:fixed;
@@ -140,6 +145,13 @@ table.fancyTable td
 	background:#333;
 }
 
+.fake-link
+{
+	border:none;
+	border-radius: 0;
+	text-decoration: underline;
+	padding:3px;
+}
 
 button
 {

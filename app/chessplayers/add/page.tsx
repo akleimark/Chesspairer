@@ -4,7 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import backArrow from '@/public/back_arrow.png'
 import { Open_Sans } from "next/font/google";
+import saveIcon from "@/public/save-icon.png";
 
+const iconWidth : number = 40;
+const iconHeight : number = 40;
 const openSand = Open_Sans({subsets: ["latin"]})
 
 const AddChessplayer = () =>
@@ -78,7 +81,9 @@ const AddChessplayer = () =>
                 <label className='w-1/4 inline-block'>Chessclub: </label>
                 <input className="text-black p-1" name="chessclub_id" id="chessclub_id" required />
               </div>
-              <div className="my-4"><button>Add</button></div>
+              <div className="my-4">
+                <button className="no-border"><Image className="my-0 mx-auto" src={saveIcon} alt="save" width={iconWidth} height={iconHeight}/></button>
+              </div>
             </form>
         </div>
        </>

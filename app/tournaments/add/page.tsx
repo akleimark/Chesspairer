@@ -6,7 +6,10 @@ import Link from "next/link";
 import backArrow from '@/public/back_arrow.png'
 import { Open_Sans } from "next/font/google";
 import { useFormState } from 'react-dom'
+import saveIcon from "@/public/save-icon.png";
 
+const iconWidth : number = 40;
+const iconHeight : number = 40;
 const openSand = Open_Sans({subsets: ["latin"]})
 
 const initialState = 
@@ -78,7 +81,12 @@ const AddTournament = () =>
                     </select>
                 </div>
                 
-                <div className="my-4"><button>Add</button></div>
+                <div className="my-4">                    
+                    <button className="no-border">
+                        <Image className="my-0 mx-auto" src={saveIcon} alt="save" width={iconWidth} height={iconHeight}/>
+                    </button>
+                    
+                </div>
                 
             </form>
             <p aria-live="polite" className="text-white">
