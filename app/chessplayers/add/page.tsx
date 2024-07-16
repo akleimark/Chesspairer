@@ -1,13 +1,10 @@
 import Navbar from "@/app/components/Navbar"
 import addChessplayerAction from '@/app/lib/actions'
-import Image from "next/image";
 import Link from "next/link";
-import backArrow from '@/public/back_arrow.png'
 import { Open_Sans } from "next/font/google";
-import saveIcon from "@/public/save-icon.png";
+import { BackIcon } from "@/app/components/IconComponents";
+import { SaveIcon } from "@/app/components/IconComponents";
 
-const iconWidth : number = 40;
-const iconHeight : number = 40;
 const openSand = Open_Sans({subsets: ["latin"]})
 
 const AddChessplayer = () =>
@@ -52,7 +49,7 @@ const AddChessplayer = () =>
         <div className={`wrapper ${openSand.className}`}>
             <h1 className="text-3xl font-bold underline">add a chessplayer</h1>
             <form className='w-3/4 mx-auto my-10 p-12 relative b-333' action={addChessplayerAction}>
-              <Link href='/chessplayers'><Image alt="Back" src={backArrow} width={50} height={50} /></Link>
+              <Link href='/chessplayers'><BackIcon /></Link>
                 <div className="m-1">
                     <label className='w-1/4 inline-block'>SSF-id: </label>
                     <input className="text-black p-1" name="ssf_id" id="ssf_id" required/>
@@ -82,7 +79,7 @@ const AddChessplayer = () =>
                 <input className="text-black p-1" name="chessclub_id" id="chessclub_id" required />
               </div>
               <div className="my-4">
-                <button className="no-border"><Image className="my-0 mx-auto" src={saveIcon} alt="save" width={iconWidth} height={iconHeight}/></button>
+                <button className="no-border"><SaveIcon /></button>
               </div>
             </form>
         </div>

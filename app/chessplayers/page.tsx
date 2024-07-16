@@ -2,12 +2,7 @@
 import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
 import { Chessplayer } from '../lib/definitions';
-import plusSign from "@/public/plus-sign.png";
-import editSign from "@/public/edit-sign.png";
-import Image from "next/image";
-
-const iconWidth : number = 20;
-const iconHeight : number = 20;
+import { AddIcon, EditIcon } from "../components/IconComponents";
 
 async function getAllChessplayers()
 {
@@ -52,7 +47,7 @@ export default async function Chessplayers()
                   <td>{chessplayer.lastname}</td>
                   <td>{chessplayer.birthyear}</td>
                   <td>{chessplayer.chessclub_id}</td>
-                  <td><Link href={`/chessplayers/edit/${chessplayer.ssf_id}`}><Image className="my-0 mx-auto" src={editSign} alt="edit" width={iconWidth} height={iconHeight}/></Link></td>
+                  <td><Link href={`/chessplayers/edit/${chessplayer.ssf_id}`}><EditIcon /></Link></td>
                 </tr>
               ))}              
           </tbody>
@@ -61,7 +56,9 @@ export default async function Chessplayers()
         <div className="buttonPanel">
           <Link href='/chessplayers/add'>
             <button
-              id="addChessplayer"><Image className="my-0 mx-auto" src={plusSign} alt="selected" width={iconWidth} height={iconHeight}/></button>                          
+              className='p-2 rounded-md border-solid border-2 border-white-600' id="addChessplayer">
+                <AddIcon alt="selected" />                
+            </button>
           </Link>
         </div>        
 

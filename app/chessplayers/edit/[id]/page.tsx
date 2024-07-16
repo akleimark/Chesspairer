@@ -3,13 +3,8 @@ import { useParams } from "next/navigation";
 import Navbar from "@/app/components/Navbar";
 import { useEffect, useState, ChangeEvent } from "react";
 import { saveChessplayer } from "@/app/lib/actions";
-import Image from "next/image";
+import { BackIcon, SaveIcon } from "@/app/components/IconComponents";
 import Link from "next/link";
-import backArrow from '@/public/back_arrow.png'
-import saveIcon from "@/public/save-icon.png";
-
-const iconWidth : number = 40;
-const iconHeight : number = 40;
 
 const EditChessplayer = () => 
 {
@@ -103,7 +98,7 @@ const EditChessplayer = () =>
       <div className="wrapper">
         <h1 className="text-3xl font-bold underline">edit a chessplayer</h1>
         <form className="w-3/4 mx-auto my-10 p-12 relative b-333" action={saveChessplayer}>
-          <Link href='/chessplayers'><Image alt="Back" src={backArrow} width={50} height={50} /></Link>
+          <Link href='/chessplayers'><BackIcon /></Link>
           <div className="m-1">
             <label className="w-1/4 inline-block">SSF-id: </label>
             <input type="hidden" name="ssf_id" value={params.id} />                          
@@ -168,7 +163,7 @@ const EditChessplayer = () =>
             />
           </div>
           <div className="my-4">
-            <button className="no-border"><Image className="my-0 mx-auto" src={saveIcon} alt="save" width={iconWidth} height={iconHeight}/></button>
+            <button><SaveIcon /></button>
           </div>
         </form>
       </div>

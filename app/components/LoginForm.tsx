@@ -6,7 +6,6 @@ async function handleSubmit(formData: FormData)
 {
   "use server"
 
-  const cookieStore = cookies();
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 
@@ -19,7 +18,7 @@ async function handleSubmit(formData: FormData)
   
   if(response.status == 200) 
   {
-    cookieStore.set('user-email', email);            
+    cookies().set('user-email', email);            
     redirect('/');
   } 
   

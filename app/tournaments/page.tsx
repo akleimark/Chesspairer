@@ -3,21 +3,16 @@ import { Open_Sans } from "next/font/google";
 import { Tournament } from "../lib/definitions";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import Image from "next/image";
-import selectedImage from "@/public/selected.png";
-import plusSign from "@/public/plus-sign.png";
+import {AddIcon, EditIcon, SelectedIcon} from "@/app/components/IconComponents"
 
 const openSand = Open_Sans({ subsets: ["latin"] });
-const iconWidth : number = 20;
-const iconHeight : number = 20;
 
 async function getAllUserTournaments()
 {
   "use server"
   try
-  {
-    const cookieStore = cookies();
-    const userId = cookieStore.get('user-email')?.value;
+  {    
+    const userId = cookies().get('user-email')?.value;
     const response:any = await fetch(`http://localhost:3000/api/tournaments/${userId}`, { cache: "no-store" });
     return ((await response).json());
 
@@ -37,9 +32,8 @@ async function selectTournament(formData : FormData)
 
 const renderSelectTournamentRow = (id : number | undefined) =>
 {
-  const cookieStore = cookies();
   let selectedTournament : number;
-  const cookieValue = cookieStore.get('selected_tournament')?.value; 
+  const cookieValue = cookies().get('selected_tournament')?.value; 
   if( cookieValue == undefined)
   {
     selectedTournament = -1;
@@ -55,14 +49,14 @@ const renderSelectTournamentRow = (id : number | undefined) =>
     <form action={selectTournament}>
       <input type="hidden" name="selected_tournament" value={id} />
       <button type="submit" className="fake-link">
-        <Image className="my-0 mx-auto" src={plusSign} alt="select" width={iconWidth} height={iconHeight}/> 
+        <AddIcon alt="selected" /> 
       </button>
     </form>
     }
     {
       (selectedTournament == id) &&       
       <button type="button" className="fake-link">
-        <Image className="my-0 mx-auto" src={selectedImage} alt="selected" width={iconWidth} height={iconHeight}/> 
+        <SelectedIcon /> 
       </button>
     }
     </>
@@ -99,7 +93,7 @@ export default async function TournamentPage()
                   <td>{tournament.number_of_rounds}</td>
                   <td>{tournament.startdate}</td>
                   <td>{tournament.enddate}</td>
-                  <td><Link href={`/tournaments/edit/${tournament.id}`}>Edit</Link></td>
+                  <td><Link href={`/tournaments/edit/${tournament.id}`}><EditIcon /></Link></td>
                   <td>{renderSelectTournamentRow(tournament.id)}</td>
                 </tr>
               ))}                            
@@ -107,8 +101,9 @@ export default async function TournamentPage()
         </table>
         <div className="buttonPanel">
           <Link href='/tournaments/add'>
-            <button
-              id="addTournament"><Image className="my-0 mx-auto" src={plusSign} alt="New tournament" width={20} height={20}/></button>
+            <button className='p-2 rounded-md border-solid border-2 border-white-600' id="addTournament">
+                <AddIcon alt="New tournament" />
+            </button>
           </Link>
         </div> 
       </div>

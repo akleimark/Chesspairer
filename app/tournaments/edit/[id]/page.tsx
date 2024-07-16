@@ -3,11 +3,10 @@ import { useParams } from "next/navigation";
 import Navbar from "@/app/components/Navbar";
 import { useEffect, useState, ChangeEvent, SetStateAction } from "react";
 import { saveTournamentAction, deleteTournamentAction } from "@/app/lib/actions";
-import Image from "next/image";
 import Link from "next/link";
-import backArrow from "@/public/back_arrow.png";
 import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";
+import { BackIcon, SaveIcon, DeleteIcon } from "@/app/components/IconComponents";
 
 const initialState = {
   message: "",
@@ -17,7 +16,6 @@ const EditTournament = () => {
   const [state, formAction] = useFormState(saveTournamentAction, initialState);
   const params = useParams();
   const router = useRouter();
-
   const [tournamentName, setTournamentName] = useState("");
   const [pairingsystem, setPairingsystem] = useState("");
   const [numberOfRounds, setNumberOfRounds] = useState(0);
@@ -45,7 +43,7 @@ const EditTournament = () => {
     return options;
   };
 
-  const tryTodeleteTournament = (event: React.FormEvent) =>
+  const tryToDeleteTournament = (event: React.FormEvent) =>
   {
     event.preventDefault();
     const value = confirm("Are you sure?");
@@ -82,16 +80,11 @@ const EditTournament = () => {
     fetch(`/api/tournament/${params.id}`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
-       // if (true) {
           setTournamentName(data.result.name);
           setStartdate(data.result.startdate);
           setEnddate(data.result.enddate);
           setNumberOfRounds(data.result.number_of_rounds);
-          setPairingsystem(data.result.pairingsystem);
-       // } 
-        //else {
-          //router.push("/tournaments");
-        //}
+          setPairingsystem(data.result.pairingsystem);  
       });
   }, [params, router]);
 
@@ -102,7 +95,7 @@ const EditTournament = () => {
         <h1 className="text-3xl font-bold underline">edit a tournament</h1>
         <form className="w-3/4 mx-auto my-10 p-12 relative b-333" action={formAction}>
           <Link href="/tournaments">
-            <Image alt="Back" src={backArrow} width={50} height={50} />
+            <BackIcon />
           </Link>
           <div className="m-1">
             <label className="w-1/4 inline-block">Tournament-id: </label>
@@ -181,9 +174,9 @@ const EditTournament = () => {
             </select>
           </div>
 
-          <div className="my-4">
-            <button className="m-2">Save</button>
-            <button onClick={tryTodeleteTournament} type="button" className='bg-red-900'>Delete</button>
+          <div className="my-4">          
+            <button><SaveIcon /></button>
+            <button onClick={tryToDeleteTournament} type="button"><DeleteIcon /></button>                        
           </div>
         </form>
         <p aria-live="polite" className="text-white">

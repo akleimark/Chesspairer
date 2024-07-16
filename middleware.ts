@@ -16,8 +16,7 @@ export const config = {
 
 export default function middleware(request : NextRequest)
 {
-    const cookieStore = cookies();
-    const isLoggedIn : boolean = cookieStore.get('user-email') !== undefined;
+    const isLoggedIn : boolean = cookies().get('user-email') !== undefined;
 
     if(!isLoggedIn && request.url != 'http://localhost:3000/login')
     {
