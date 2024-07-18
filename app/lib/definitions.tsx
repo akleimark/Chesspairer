@@ -1,9 +1,7 @@
-
-
 export type Chessplayer = 
 {
     ssf_id : number, 
-    fide_id: number, 
+    fide_id?: number, 
     firstname : string, 
     lastname : string, 
     gender : string, 
@@ -20,9 +18,9 @@ export type Chessclub =
 export type User = 
 {
     email : string, 
-    password : string
+    password? : string,
+    chessplayer : Chessplayer
 }
-
 
 export type Result = 
 {
@@ -33,6 +31,13 @@ export type Result =
     result: string
 }
 
+export type Tournamentplayer = 
+{
+    chessplayer_id : number,
+    player_number : number
+}
+
+
 export type Tournament = 
 {
     id?: number | undefined, 
@@ -42,5 +47,6 @@ export type Tournament =
     number_of_rounds: number,
     startdate: string,
     enddate: string,
-    results? : Result
+    results? : Array<Result>,
+    players?: Array<any>
 }

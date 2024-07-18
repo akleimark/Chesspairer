@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sql } from '@vercel/postgres';
+import { Tournament } from "@/app/lib/definitions";
 
 export async function GET(request: Request, { params }: { params: { id: number } })
 {
@@ -7,29 +8,39 @@ export async function GET(request: Request, { params }: { params: { id: number }
 
     const result = await
     sql
-    `   SELECT  t.name, t.user_email, t.pairingsystem, t.number_of_rounds, t.startdate, t.enddate
+    `   SELECT  t.name, 
+                t.user_email, 
+                t.pairingsystem, 
+                t.number_of_rounds, 
+                t.startdate, 
+                t.enddate                
         FROM tournaments t                
-        WHERE t.id=${id}
+        WHERE t.id=${id};
     `;
 
     if(result.rowCount == 1)
-    {
-        return NextResponse.json(
-        { 
-            result: 
-            {
-                'name'              : result.rows[0].name,
-                'user_email'        : result.rows[0].user_email,
-                'pairingsystem'     : result.rows[0].pairingsystem,
-                'number_of_rounds'  : result.rows[0].number_of_rounds,
-                'startdate'         : result.rows[0].startdate,
-                'enddate'           : result.rows[0].enddate,                
-            }
-        }, 
-        { 
-            status: 200 
-        });                 
+    {        
+        const tournamentplayers = await
+        sql
+        `   SELECT  tc.chessplayer_id,
+                    tc.player_number
+            FROM tournament_chessplayer tc
+            WHERE tc.tournament_id=${id}
+            ORDER BY tc.player_number
+        `;
+        const tournament : Tournament = 
+        {
+            user_email : result.rows[0].user_email,     
+            name: result.rows[0].name,
+            pairingsystem: result.rows[0].pairingsystem, 
+            number_of_rounds: result.rows[0].number_of_rounds,
+            startdate: result.rows[0].startdate,
+            enddate: result.rows[0].enddate,
+            players: tournamentplayers.rows
+        }
+         
+        return NextResponse.json({ tournament: tournament }, { status: 200 });                  
     }
 
-    return NextResponse.json({ result: 'null' }, { status: 400 });  
+    return NextResponse.json({ tournament: 'null' }, { status: 400 });  
 }

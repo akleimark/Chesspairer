@@ -93,9 +93,7 @@ const EditChessplayer = () =>
   };
 
   return (
-    <>
-      <Navbar />
-      <div className="wrapper">
+    <>      
         <h1 className="text-3xl font-bold underline">edit a chessplayer</h1>
         <form className="w-3/4 mx-auto my-10 p-12 relative b-333" action={saveChessplayer}>
           <Link href='/chessplayers'><BackIcon /></Link>
@@ -166,7 +164,7 @@ const EditChessplayer = () =>
             <button><SaveIcon /></button>
           </div>
         </form>
-      </div>
+     
     </>
   );
 };

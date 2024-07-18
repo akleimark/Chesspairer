@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";
 import { BackIcon, SaveIcon, DeleteIcon } from "@/app/components/IconComponents";
+import { Tournament } from "@/app/lib/definitions";
 
 const initialState = {
   message: "",
@@ -15,7 +16,6 @@ const initialState = {
 const EditTournament = () => {
   const [state, formAction] = useFormState(saveTournamentAction, initialState);
   const params = useParams();
-  const router = useRouter();
   const [tournamentName, setTournamentName] = useState("");
   const [pairingsystem, setPairingsystem] = useState("");
   const [numberOfRounds, setNumberOfRounds] = useState(0);
@@ -76,17 +76,18 @@ const EditTournament = () => {
     return options;
   };
 
-  useEffect(() => {
+  useEffect(() => 
+  {
     fetch(`/api/tournament/${params.id}`, { cache: "no-store" })
       .then((res) => res.json())
-      .then((data) => {
-          setTournamentName(data.result.name);
-          setStartdate(data.result.startdate);
-          setEnddate(data.result.enddate);
-          setNumberOfRounds(data.result.number_of_rounds);
-          setPairingsystem(data.result.pairingsystem);  
+      .then(({tournament}) => {          
+          setTournamentName(tournament.name);
+          setStartdate(tournament.startdate);
+          setEnddate(tournament.enddate);
+          setNumberOfRounds(tournament.number_of_rounds);
+          setPairingsystem(tournament.pairingsystem);  
       });
-  }, [params, router]);
+  }, [params]);
 
   return (
     <>

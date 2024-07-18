@@ -1,9 +1,14 @@
-
-import React from "react";
 import Link from "next/link";
 import Logo from "./Logo";
+import Image from "next/image";
+import logoutIcon from "@/public/logout-icon.png"
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
 const Navbar = () => 
 {
+  const componentType = typeof window === 'undefined' ? 'server' : 'client';
+  console.log(componentType);
   return (
     <>
       <nav>
@@ -28,7 +33,7 @@ const Navbar = () =>
                     <Link className="text-white opacity-70 hover:opacity-100 duration-300" href="/about">
                       About
                     </Link>
-                </li>
+                </li>                
             </ul>
         </nav>  
     </>

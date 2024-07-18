@@ -4,9 +4,9 @@ import saveIcon from "@/public/save-icon.png";
 import deleteIcon from "@/public/delete-icon.png";
 import backIcon from "@/public/back_arrow.png";
 import selectedIcon from "@/public/selected.png";
-
+import playersIcon from "@/public/playersIcon.png"
+import logoutIcon from "@/public/logout-icon.png"
 import Image from "next/image";
-
 
 export function EditIcon(props: any) 
 {
@@ -82,6 +82,21 @@ export function SelectedIcon(props: any)
     }
 
     return (
-        <Image className="my-0 mx-auto" src={selectedIcon} alt="selected" width={20} height={20}/> 
+        <Image className="my-0 mx-auto" src={selectedIcon} alt={alt} width={20} height={20}/> 
     )
 }
+
+export function PlayersIcon()
+{
+    return (
+        <Image className="my-0 mx-auto" src={playersIcon} alt={'players'} height={20}/>
+    )
+}
+
+export function LogoutIcon(props : any)
+{
+    return (
+        <Image className="my-0 mx-auto" src={logoutIcon} alt={'logout'} height={18} id="logout" onClick={props.onClick}/>
+    )
+}
+

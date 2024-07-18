@@ -127,6 +127,17 @@ table.fancyTable td
 	padding: 3px;
 }
 
+#logout
+{
+	position: absolute;
+	right: 20px;
+  	top: 24px;
+}
+
+#logout:hover
+{
+	cursor: pointer;
+}
 
 .buttonPanel
 {
@@ -147,14 +158,6 @@ table.fancyTable td
 	border-radius: 0;
 	text-decoration: underline;
 	padding:3px;
-}
-
-
-#logout
-{
-	border:none;
-	border-radius: 0;
-	
 }
 
 body 
@@ -252,7 +255,7 @@ nav ul
 	margin:0;
 	list-style: none;
 	position: relative;
-	
+	margin-right: 60px;
 }
 	
 /* Positioning the navigation items inline */
@@ -275,12 +278,17 @@ nav a, nav button
 }
 
 
-nav ul li ul li:hover { background: #000000; }
+nav ul li ul li.item:hover { background: #000000; }
 
 /* Background color change on Hover */
-nav a:hover, nav button:hover
+nav a:hover
 { 
 	background-color: #000000; 
+}
+
+nav a.logout:hover
+{ 
+	background-color: transparent; 
 }
 
 /* Hide Dropdowns by Default

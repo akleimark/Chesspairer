@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS federations cascade;
 DROP TABLE EXISTS users cascade;
 DROP TABLE EXISTS ratings cascade;
 DROP TABLE EXISTS tournaments cascade;
-
+DROP TABLE EXISTS tournament_chessplayer cascade;
 
 
 CREATE TABLE federations(id VARCHAR(255) PRIMARY KEY);
@@ -21,7 +21,10 @@ CREATE TABLE tournaments(id BIGSERIAL PRIMARY KEY, name VARCHAR(255) NOT NULL, u
 number_of_rounds SMALLINT NOT NULL, startdate DATE NOT NULL, enddate DATE NOT NULL, 
 FOREIGN KEY(user_email) REFERENCES users(email) ON DELETE CASCADE ON UPDATE CASCADE);
 
-
 CREATE TABLE results(tournament_id BIGINT NOT NULL, white INTEGER NOT NULL, black INTEGER NOT NULL, round_number SMALLINT NOT NULL, result VARCHAR(32) NOT NULL, 
 PRIMARY KEY(tournament_id, white, black, round_number), FOREIGN KEY(white) REFERENCES chessplayers(id) ON DELETE CASCADE ON UPDATE CASCADE, 
 FOREIGN KEY(black) REFERENCES chessplayers(id) ON DELETE CASCADE ON UPDATE CASCADE);
+
+CREATE TABLE tournament_chessplayer(tournament_id BIGINT NOT NULL, chessplayer_id INTEGER NOT NULL, player_number SMALLINT DEFAULT 0, 
+PRIMARY KEY(tournament_id, chessplayer_id), FOREIGN KEY(chessplayer_id) REFERENCES chessplayers(id) ON DELETE CASCADE ON UPDATE CASCADE, 
+FOREIGN KEY(tournament_id) REFERENCES tournaments(id) ON DELETE CASCADE ON UPDATE CASCADE);

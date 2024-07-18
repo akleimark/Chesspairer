@@ -24,45 +24,41 @@ export default async function Chessplayers()
   
   return (
     <>
-      <Navbar />
-      <div className="wrapper">
-        <h1 className="text-3xl font-bold underline">chessplayers</h1>
-        <table className="fancyTable">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Firstname</th>
-              <th>Lastname</th>
-              <th>Birthyear</th>
-              <th>Chessclub</th>
-              <th>Edit</th>
+    <h1 className="text-3xl font-bold underline">chessplayers</h1>
+    <table className="fancyTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Birthyear</th>
+          <th>Chessclub</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+      {chessplayerContainer &&
+          chessplayerContainer.chessplayers.rows.map((chessplayer:Chessplayer) => (
+            <tr key={chessplayer.ssf_id}>
+              <td>{chessplayer.ssf_id}</td>
+              <td>{chessplayer.firstname}</td>
+              <td>{chessplayer.lastname}</td>
+              <td>{chessplayer.birthyear}</td>
+              <td>{chessplayer.chessclub_id}</td>
+              <td><Link href={`/chessplayers/edit/${chessplayer.ssf_id}`}><EditIcon /></Link></td>
             </tr>
-          </thead>
-          <tbody>
-          {chessplayerContainer &&
-              chessplayerContainer.chessplayers.rows.map((chessplayer:Chessplayer) => (
-                <tr key={chessplayer.ssf_id}>
-                  <td>{chessplayer.ssf_id}</td>
-                  <td>{chessplayer.firstname}</td>
-                  <td>{chessplayer.lastname}</td>
-                  <td>{chessplayer.birthyear}</td>
-                  <td>{chessplayer.chessclub_id}</td>
-                  <td><Link href={`/chessplayers/edit/${chessplayer.ssf_id}`}><EditIcon /></Link></td>
-                </tr>
-              ))}              
-          </tbody>
-        </table>
+          ))}              
+      </tbody>
+    </table>
 
-        <div className="buttonPanel">
-          <Link href='/chessplayers/add'>
-            <button
-              className='p-2 rounded-md border-solid border-2 border-white-600' id="addChessplayer">
-                <AddIcon alt="selected" />                
-            </button>
-          </Link>
-        </div>        
-
-      </div>
+    <div className="buttonPanel">
+      <Link href='/chessplayers/add'>
+        <button
+          className='p-2 rounded-md border-solid border-2 border-white-600' id="addChessplayer">
+            <AddIcon alt="selected" />                
+        </button>
+      </Link>
+    </div>        
     </>
   );
 };
