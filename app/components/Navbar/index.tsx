@@ -1,14 +1,8 @@
 import Link from "next/link";
 import Logo from "./Logo";
-import Image from "next/image";
-import logoutIcon from "@/public/logout-icon.png"
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 const Navbar = () => 
 {
-  const componentType = typeof window === 'undefined' ? 'server' : 'client';
-  console.log(componentType);
   return (
     <>
       <nav>

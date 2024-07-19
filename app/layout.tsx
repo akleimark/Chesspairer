@@ -4,6 +4,7 @@ import "./globals.css"
 import Navbar from "./components/Navbar";
 import Logout from "./components/Logout";
 import { cookies } from "next/headers";
+import { CookiesProvider } from 'next-client-cookies/server';
 
 const openSand = Open_Sans({subsets: ["latin"]})
 
@@ -31,11 +32,11 @@ export default async function RootLayout({
           <Navbar />
           <Logout />
           </>
-        }
-          
-          
+        }                    
           <div className="wrapper">
-            {children}                   
+          <CookiesProvider>
+            {children}     
+          </CookiesProvider>              
           </div>
         </body>
       </html>

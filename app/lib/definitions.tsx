@@ -34,6 +34,9 @@ export type Result =
 export type Tournamentplayer = 
 {
     chessplayer_id : number,
+    firstname : string, 
+    lastname : string, 
+    birthyear : number,
     player_number : number
 }
 

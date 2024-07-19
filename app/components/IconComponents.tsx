@@ -30,7 +30,7 @@ export function AddIcon(props: any)
     }
 
     return (
-        <Image className="my-0 mx-auto" src={plusSign} alt={alt} width={20} height={20}/>
+        <Image className="my-0 mx-auto cursor-pointer" src={plusSign} alt={alt} width={20} height={20}/>
     )
 }
 
@@ -43,20 +43,25 @@ export function SaveIcon(props: any)
     }
 
     return (
-        <Image className="my-0 mx-auto" src={saveIcon} alt={alt} width={40} height={40}/>
+        <Image className="my-0 mr-2 cursor-pointer" src={saveIcon} alt={alt} width={40} height={40}/>
     )
 }
 
 export function DeleteIcon(props: any)
 {
     let alt : string = 'delete';
+    let height : number = 40;
     if(props.alt != undefined)
     {
         alt = props.alt;
     }
+    if(props.height != undefined)
+    {
+        height = props.height;
+    }
 
     return (
-        <Image className="my-0 mx-2" src={deleteIcon} alt={alt} width={40} height={40}/>
+        <Image className="my-0 mx-auto cursor-pointer" src={deleteIcon} alt={alt} height={height}/>
     )
 }
 

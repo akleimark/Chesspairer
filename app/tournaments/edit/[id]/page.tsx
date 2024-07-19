@@ -1,13 +1,10 @@
 "use client";
 import { useParams } from "next/navigation";
-import Navbar from "@/app/components/Navbar";
 import { useEffect, useState, ChangeEvent, SetStateAction } from "react";
 import { saveTournamentAction, deleteTournamentAction } from "@/app/lib/actions";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";
 import { BackIcon, SaveIcon, DeleteIcon } from "@/app/components/IconComponents";
-import { Tournament } from "@/app/lib/definitions";
 
 const initialState = {
   message: "",
@@ -90,8 +87,7 @@ const EditTournament = () => {
   }, [params]);
 
   return (
-    <>
-      <Navbar />
+    <>      
       <div className="wrapper">
         <h1 className="text-3xl font-bold underline">edit a tournament</h1>
         <form className="w-3/4 mx-auto my-10 p-12 relative b-333" action={formAction}>

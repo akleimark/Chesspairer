@@ -304,3 +304,52 @@ export async function deleteTournamentAction(id: number) {
   }
   redirect("/tournaments");
 }
+
+export async function getTournamentDataAction()
+{
+    const tournamentId = cookies().get('selected_tournament')?.value;
+    try
+    {
+        const response:any = await fetch(`http://localhost:3000/api/tournament/${tournamentId}`, { cache: "no-store" });        
+        return ((await response).json());
+    }
+    catch(error)
+    {
+        console.log(error);
+    }
+}
+
+export async function getAvailablePlayersAction()
+{
+    try
+    {
+        const response:any = await fetch("http://localhost:3000/api/chessplayers", { cache: "no-store" });
+        return ((await response).json());
+    }
+    catch(error)
+    {
+        console.log(error);
+    }
+}
+
+export async function addTournamentplayerAction(tournamentId : number, chessplayerId : number)
+{
+	const response: any = await fetch(`http://localhost:3000/api/tournaments/addplayer`, 
+	{
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ tournament_id: tournamentId, chessplayer_id: chessplayerId }),
+	})
+	
+	return ((await response).json());
+}
+export async function removeTournamentplayerAction(tournamentId : number, chessplayerId : number)
+{
+	const response: any = await fetch(`http://localhost:3000/api/tournaments/deleteplayer`, 
+	{
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ tournament_id: tournamentId, chessplayer_id: chessplayerId }),
+	})
+	return ((await response).json());
+}

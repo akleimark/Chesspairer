@@ -1,0 +1,23 @@
+import { NextResponse } from "next/server";
+import { sql } from '@vercel/postgres';
+
+export async function POST(request: Request, response : Response)
+{
+    const {tournament_id, chessplayer_id} = await request.json()
+    try
+    {
+        await 
+        sql
+        `
+            DELETE FROM tournament_chessplayer
+            WHERE   tournament_id=${tournament_id}
+            AND     chessplayer_id=${chessplayer_id};
+        `
+    }
+    catch(error)
+    {
+        return NextResponse.json({ result: 'error' }, { status: 400 });  
+    }
+    
+    return NextResponse.json({ result: 'ok' }, { status: 200 });  
+}

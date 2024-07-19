@@ -23,8 +23,14 @@ export async function GET(request: Request, { params }: { params: { id: number }
         const tournamentplayers = await
         sql
         `   SELECT  tc.chessplayer_id,
-                    tc.player_number
+                    tc.player_number,
+                    c.firstname,
+                    c.lastname,
+                    c.birthyear
+
             FROM tournament_chessplayer tc
+            INNER JOIN chessplayers c
+                ON c.id=tc.chessplayer_id
             WHERE tc.tournament_id=${id}
             ORDER BY tc.player_number
         `;
