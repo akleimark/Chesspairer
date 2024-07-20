@@ -321,9 +321,10 @@ export async function getTournamentDataAction()
 
 export async function getAvailablePlayersAction()
 {
+	const tournamentId = cookies().get('selected_tournament')?.value;
     try
     {
-        const response:any = await fetch("http://localhost:3000/api/chessplayers", { cache: "no-store" });
+        const response:any = await fetch(`http://localhost:3000/api/tournament/${tournamentId}/available-players`, { cache: "no-store" });
         return ((await response).json());
     }
     catch(error)
@@ -352,4 +353,18 @@ export async function removeTournamentplayerAction(tournamentId : number, chessp
 		body: JSON.stringify({ tournament_id: tournamentId, chessplayer_id: chessplayerId }),
 	})
 	return ((await response).json());
+}
+
+
+export async function searchAction(firstname : string, lastname : string)
+{
+	const tournamentId = cookies().get('selected_tournament')?.value;
+	const response: any = await fetch(`http://localhost:3000/api/chessplayers/search`, 
+	{
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ tournament_id: tournamentId, firstname: firstname, lastname : lastname }),
+	})
+	return ((await response).json());
+	
 }

@@ -62,7 +62,7 @@ table
 	display: flex;
 	flex-flow: column;
     width: 100%;
-    height: 80%;
+    /*height: 80%;*/
 }
 
 tbody
@@ -123,6 +123,7 @@ table.fancyTable td
 	padding: 3px;
 }
 
+
 #logout
 {
 	position: absolute;
@@ -146,14 +147,6 @@ table.fancyTable td
 .b-333
 {
 	background:#333;
-}
-
-.fake-link
-{
-	border:none;
-	border-radius: 0;
-	text-decoration: underline;
-	padding:3px;
 }
 
 body 
@@ -330,4 +323,21 @@ li > a:only-child:after { content: ''; }
 img.startPage
 {
 	margin:15px auto!important;
+}
+
+.tournament-wrapper
+{
+	min-height: 85%;
+}
+
+.h-9-10
+{
+	height: 88%;
+}
+
+.searchbar
+{
+	position: absolute;
+	bottom: 10px;
+	height: 50px;
 }
