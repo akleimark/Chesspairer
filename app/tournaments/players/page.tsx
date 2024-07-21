@@ -6,6 +6,9 @@ import { useCookies } from 'next-client-cookies';
 import Link from "next/link";
 import {addTournamentplayerAction, removeTournamentplayerAction} from "@/app/lib/actions";
 import {TournamentplayersSearchbar} from "@/app/components/Searchbars"
+import { Lato } from "next/font/google";
+
+const lato = Lato({subsets: ["latin"], weight:'400'});
 
 export default function TournamentPlayersPage()
 {
@@ -78,51 +81,50 @@ export default function TournamentPlayersPage()
     function showAvailablePlayers()
     {
         return (
-            <table className="fancyTable">
+            <table className="text-center mt-2 mb-auto w-full">
             <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Add</th>                   
+                <tr className="border-solid border-2 border-white-600 bg-lime-900">
+                    <th className="p-5 font-semibold">#</th>
+                    <th className="p-5 font-semibold">Firstname</th>
+                    <th className="p-5 font-semibold">Lastname</th>
+                    <th className="p-5 font-semibold">Add</th>                   
                 </tr>
             </thead>
             <tbody>            
             { chessplayers && chessplayers.map &&
                 chessplayers.map((chessplayer:Chessplayer) => (
-                    <tr key={chessplayer.ssf_id}>
-                        <td>{chessplayer.ssf_id}</td>
-                        <td>{chessplayer.firstname}</td>
-                        <td>{chessplayer.lastname}</td>
-                        <td onClick={(event) => addTournamentplayer(event, chessplayer.ssf_id)}><AddIcon alt="add" height={20} /></td>                    
+                    <tr className="border-solid border-2 border-white-600" key={chessplayer.ssf_id}>
+                        <td className="p-1 bg-pink-950 align-middle">{chessplayer.ssf_id}</td>
+                        <td className="p-1 bg-pink-950 align-middle">{chessplayer.firstname}</td>
+                        <td className="p-1 bg-pink-950 align-middle">{chessplayer.lastname}</td>
+                        <td className="p-1 bg-pink-950 align-middle" onClick={(event) => addTournamentplayer(event, chessplayer.ssf_id)}><AddIcon alt="add" height={20} /></td>                    
                     </tr>
-                ))}     
-            
+                ))}                 
             </tbody>
         </table>
         )        
     }
-    document.getElementById("search")?.click();
+    
     function showParticipants()
     {
         return (
-            <table className="fancyTable">
+            <table className="text-center mt-2 mb-auto w-full">
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Firstname</th>
-                        <th>Lastname</th>                         
-                        <th>Remove</th>                  
+                    <tr className="border-solid border-2 border-white-600 bg-lime-900">
+                        <th className="p-5 font-semibold">#</th>
+                        <th className="p-5 font-semibold">Firstname</th>
+                        <th className="p-5 font-semibold">Lastname</th>                         
+                        <th className="p-5 font-semibold">Remove</th>                  
                     </tr>
                 </thead>
                 <tbody>
                 {
                     tournament?.players?.map((player : Tournamentplayer )=> (
-                        <tr key={player.chessplayer_id}>
-                            <td>{player.chessplayer_id}</td>
-                            <td>{player.firstname}</td>
-                            <td>{player.lastname}</td>                            
-                            <td onClick={(event) => removeTournamentplayer(event, player.chessplayer_id)}><DeleteIcon alt="delete" height={20} /></td>
+                        <tr className="border-solid border-2 border-white-600" key={player.chessplayer_id}>
+                            <td className="p-1 bg-pink-950 align-middle">{player.chessplayer_id}</td>
+                            <td className="p-1 bg-pink-950 align-middle">{player.firstname}</td>
+                            <td className="p-1 bg-pink-950 align-middle">{player.lastname}</td>                            
+                            <td className="p-1 bg-pink-950 align-middle" onClick={(event) => removeTournamentplayer(event, player.chessplayer_id)}><DeleteIcon alt="delete" height={20} /></td>
                         </tr>
                 ))
                 }
@@ -133,24 +135,25 @@ export default function TournamentPlayersPage()
 
     return (
         <>
-            <h1 className="text-3xl font-bold underline">tournament players</h1>
-            <div className="mx-auto my-10 p-12 relative b-333 h-9-10"> 
-                <Link href="/tournaments">
-                    <BackIcon />
-                </Link>               
-                <div className="grid grid-cols-2 gap-1">
-                    <div>
-                        <h4 className="text-center font-bold">Available players</h4>
-                       {showAvailablePlayers()}
+            <div className={`${lato.className} h-full overflow-hidden`}>
+                <h1 className="text-3xl font-bold underline small-caps text-center my-8">tournament players</h1>
+                <div className="mx-auto my-10 p-12 relative bg-neutral-700 h-9-10"> 
+                    <Link href="/tournaments">
+                        <BackIcon />
+                    </Link>               
+                    <div className="grid grid-cols-2 gap-1">
+                        <div>
+                            <h4 className="text-center font-bold">Available players ({chessplayers.length})</h4>
+                            {showAvailablePlayers()}
+                        </div>
+                        <div>
+                            <h4 className="text-center font-bold">Participants ({tournament?.players?.length})</h4>
+                            {showParticipants()}                            
+                        </div>
                     </div>
-                    <div>
-                        <h4 className="text-center font-bold">Participants</h4>
-                        {showParticipants()}
-                        
+                    <div className="absolute my-2 bottom-3 -ml-2">
+                        <TournamentplayersSearchbar onDataFromChild={handleDataFromChild} />
                     </div>
-                </div>
-                <div className="searchbar">
-                    <TournamentplayersSearchbar onDataFromChild={handleDataFromChild} />
                 </div>
             </div>
         </>

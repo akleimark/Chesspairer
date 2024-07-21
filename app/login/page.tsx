@@ -6,7 +6,7 @@ const Login = () =>
   return (
     <>
       <div className="wrapper">
-        <h1 className="text-3xl font-bold underline">login</h1>
+        <h1 className="text-3xl font-bold underline text-center">login</h1>
         <LoginForm />
       </div>    
     </>

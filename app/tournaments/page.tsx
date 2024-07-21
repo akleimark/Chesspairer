@@ -68,30 +68,30 @@ export default async function TournamentPage()
     
     return (
     <>      
-      <h1 className="text-3xl font-bold underline">tournaments</h1>
-      <table className="fancyTable">
+      <h1 className="text-3xl font-bold underline small-caps text-center my-8">tournaments</h1>
+      <table className="text-center mt-2 mb-auto w-full">
         <thead>
-          <tr>            
-            <th>Name</th>
-            <th>Pairingsystem</th>
-            <th>Number of rounds</th>
-            <th>Startdate</th>
-            <th>Enddate</th>
-            <th>Edit</th>
-            <th>Select</th>
+          <tr className="border-solid border-2 border-white-600 bg-lime-900">            
+            <th className="p-5 font-semibold">Name</th>
+            <th className="p-5 font-semibold">Pairingsystem</th>
+            <th className="p-5 font-semibold">Number of rounds</th>
+            <th className="p-5 font-semibold">Startdate</th>
+            <th className="p-5 font-semibold">Enddate</th>
+            <th className="p-5 font-semibold">Edit</th>
+            <th className="p-5 font-semibold">Select</th>
           </tr>
         </thead>
         <tbody>
         {tournaments &&
-            tournaments.tournaments.rows.map((tournament:Tournament) => (
-              <tr key={tournament.id}>                  
-                <td>{tournament.name}</td>
-                <td>{tournament.pairingsystem}</td>
-                <td>{tournament.number_of_rounds}</td>
-                <td>{tournament.startdate}</td>
-                <td>{tournament.enddate}</td>
-                <td><Link href={`/tournaments/edit/${tournament.id}`}><EditIcon /></Link></td>
-                <td>{renderSelectTournamentRow(tournament.id)}</td>
+            tournaments?.tournaments?.rows?.map((tournament:Tournament) => (
+              <tr className="border-solid border-2 border-white-600" key={tournament.id}>                  
+                <td className="p-1 bg-pink-950 align-middle">{tournament.name}</td>
+                <td className="p-1 bg-pink-950 align-middle">{tournament.pairingsystem}</td>
+                <td className="p-1 bg-pink-950 align-middle">{tournament.number_of_rounds}</td>
+                <td className="p-1 bg-pink-950 align-middle">{tournament.startdate}</td>
+                <td className="p-1 bg-pink-950 align-middle">{tournament.enddate}</td>
+                <td className="p-1 bg-pink-950 align-middle"><Link href={`/tournaments/edit/${tournament.id}`}><EditIcon /></Link></td>
+                <td className="p-1 bg-pink-950 align-middle">{renderSelectTournamentRow(tournament.id)}</td>
               </tr>
             ))}                            
         </tbody>

@@ -17,7 +17,7 @@ export function TournamentplayersSearchbar({onDataFromChild} : any)
     useEffect(() => 
     {
         onDataFromChild(players); 
-    }, [players, onDataFromChild])             
+    },)             
     
     return (
         <div>

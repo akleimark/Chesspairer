@@ -4,77 +4,94 @@ import { Chessplayer, Chessclub, Tournament } from "./definitions";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
-export default async function addChessplayerAction(formData: FormData) {
-  let chessplayer: Chessplayer = {
-    ssf_id: -1,
-    fide_id: -1,
-    firstname: "",
-    lastname: "",
-    gender: "",
-    birthyear: -1,
-    chessclub_id: "",
-    federation: "Sweden",
-  };
+export default async function addChessplayerAction(prevState: any, formData: FormData) 
+{
+	let message = '';
 
-  chessplayer.ssf_id = +(formData.get("ssf_id") as string);
-  chessplayer.fide_id = +(formData.get("fide_id") as string);
-  const name = formData.get("name_id") as string;
-  chessplayer.firstname = getFirstnameFromFullname(name);
-  chessplayer.lastname = getLastnameFromFullname(name);
-  chessplayer.gender = formData.get("gender") as string;
-  chessplayer.birthyear = +(formData.get("birthyear") as string);
-  chessplayer.chessclub_id = formData.get("chessclub_id") as string;
+	
+	let chessplayer: Chessplayer = 
+  	{
+		ssf_id: -1,
+		fide_id: -1,
+		firstname: "",
+		lastname: "",
+		gender: "",
+		birthyear: -1,
+		chessclub_id: "",
+		federation: "Sweden",
+  	};
 
-  // We check if the chessplayer exist.
-  try {
-    const result = await sql`
+	chessplayer.ssf_id = +(formData.get("ssf_id") as string);
+	chessplayer.fide_id = +(formData.get("fide_id") as string);
+	const name = formData.get("name_id") as string;
+	chessplayer.firstname = getFirstnameFromFullname(name);
+	chessplayer.lastname = getLastnameFromFullname(name);
+	chessplayer.gender = formData.get("gender") as string;
+	chessplayer.birthyear = +(formData.get("birthyear") as string);
+	chessplayer.chessclub_id = formData.get("chessclub_id") as string;
+
+	// We check if the chessplayer exist.
+	
+	let result = await 
+	sql
+		`
 			SELECT COUNT(*) FROM chessplayers
 			WHERE id=${chessplayer.ssf_id};			
-  		`;
-    // The chessplayer exist => we exit.
-    if (result.rows[0].count == 1) {
-      return;
-    }
-  } catch (error) {
-    console.log(error);
-  }
+		`;
+	// The chessplayer exist => we exit.
+	if (result.rows[0].count == 1) 
+	{
+		message = "The chessplayer already exists."
+		return {
+			message: message,
+		};
+	}
 
-  // We check if the fide-id exist.
-  try {
-    const result = await sql`
+	// We check if the fide-id exist.
+	result = await 
+	sql
+		`
 			SELECT COUNT(*) FROM fidemembers
 			WHERE id=${chessplayer.fide_id}
-			AND chessplayer_id=${chessplayer.ssf_id};			
-  		`;
-    // The fide-id exist => we exit.
-    if (result.rows[0].count == 1) {
-      return;
-    }
-  } catch (error) {
-    console.log(error);
-  }
+			;			
+		`;			
+		// The fide-id exist => we exit.
+	if (result.rows[0].count == 1) 
+	{
+		message = "The FIDE-id already exists."
+		return {
+			message: message,
+		};
+	}
 
-  createChessclubIfNotExists(chessplayer.chessclub_id);
+	createChessclubIfNotExists(chessplayer.chessclub_id);
 
-  // Insert into chessplayers
-  try {
-    await sql`
+	// Insert into chessplayers
+	await 
+	sql
+		`
 			INSERT INTO chessplayers(id, firstname, lastname, gender, birthyear, chessclub_id, federation_id)
 			VALUES(${chessplayer.ssf_id}, ${chessplayer.firstname}, ${chessplayer.lastname}, ${chessplayer.gender}, ${chessplayer.birthyear}, 
 			${chessplayer.chessclub_id}, ${chessplayer.federation});
-  		`;
-  } catch (error) {
-    console.log(error);
-  }
-
-  // Insert into fidemembers
-  if (chessplayer.fide_id != 0) {
-    await sql`
-			INSERT INTO fidemembers(id, chessplayer_id)
-			VALUES(${chessplayer.fide_id}, ${chessplayer.ssf_id});
-  		`;
-  }
-  redirect("/chessplayers");
+		`;
+	
+	// Insert into fidemembers
+	if (chessplayer.fide_id != 0) 
+	{
+		await sql`
+				INSERT INTO fidemembers(id, chessplayer_id)
+				VALUES(${chessplayer.fide_id}, ${chessplayer.ssf_id});
+			`;
+	}
+  	if(message.length == 0)
+	{
+		redirect("/chessplayers");
+	}	
+	
+	return {
+		message: message,
+	};
+	
 }
 
 async function updateChessplayerData(chessplayer: Chessplayer) {
@@ -155,8 +172,9 @@ function checkFullName(fullname: string) {
   return true;
 }
 
-export async function saveChessplayer(formData: FormData) 
+export async function saveChessplayerAction(prevState: any, formData: FormData) 
 {
+	let message = "";
   	let chessplayer: Chessplayer = 
 	{
 		ssf_id: +(formData.get("ssf_id") as string),
@@ -171,15 +189,31 @@ export async function saveChessplayer(formData: FormData)
 
   	if (chessplayer.chessclub_id.length < 2) 
 	{
-    	return "false";
+    	message = "The chessclub must be at least two (2) characters."
+		return {
+			message: message,
+		};
+		
   	}
+	
   	if (!checkFullName(formData.get("name_id") as string)) 
 	{
-    	return "false";
+    	message = "The name of the chessplayer is too short. It must at least be two(2) characters."
+		return {
+			message: message,
+		};
   	}
+	
 	createChessclubIfNotExists(chessplayer.chessclub_id);
 	updateChessplayerData(chessplayer);
-	redirect("/chessplayers");
+	if(message.length == 0)
+	{
+		redirect("/chessplayers");
+	}
+	
+	return {
+		message: message,
+	};
 }
 
 export async function newTournamentAction(prevState: any, formData: FormData) 

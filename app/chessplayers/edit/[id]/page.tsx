@@ -1,13 +1,23 @@
 "use client";
 import { useParams } from "next/navigation";
-import Navbar from "@/app/components/Navbar";
 import { useEffect, useState, ChangeEvent } from "react";
-import { saveChessplayer } from "@/app/lib/actions";
+import { saveChessplayerAction } from "@/app/lib/actions";
 import { BackIcon, SaveIcon } from "@/app/components/IconComponents";
 import Link from "next/link";
+import { useFormState } from 'react-dom'
+import { Lato } from "next/font/google";
+
+const lato = Lato({subsets: ["latin"], weight:'400'});
+
+const initialState = 
+{
+    message: '',
+}
 
 const EditChessplayer = () => 
 {
+  const [state, formAction] = useFormState(saveChessplayerAction, initialState)
+
   const updateChessclub = (event: ChangeEvent<HTMLInputElement>) => 
   {
     setChessclub(event.target.value);
@@ -94,77 +104,81 @@ const EditChessplayer = () =>
 
   return (
     <>      
-        <h1 className="text-3xl font-bold underline">edit a chessplayer</h1>
-        <form className="w-3/4 mx-auto my-10 p-12 relative b-333" action={saveChessplayer}>
-          <Link href='/chessplayers'><BackIcon /></Link>
-          <div className="m-1">
-            <label className="w-1/4 inline-block">SSF-id: </label>
-            <input type="hidden" name="ssf_id" value={params.id} />                          
-            <input
-              value={params.id}
-              className="text-black p-1"
-              name="ssf_id"
-              id="ssf_id"
-              disabled
-            />        
-          </div>                
-          <div className="m-1">
-            <label className="w-1/4 inline-block">Fide-id: </label>                        
-            {fideId != null && 
-            <input
-              value={fideId}
-              className="text-black p-1"
-              name="fide_id"
-              id="fide_id"
-              disabled
-            />}
-            {fideId == null && 
-            <input
-              value={fideId}
-              className="text-black p-1"
-              name="fide_id"
-              id="fide_id"              
-            />}
-          </div>
-          <div className="m-1">
-            <label className="w-1/4 inline-block">Name: </label>
-            <input
-              onChange={updateChessplayerName}
-              value={chessplayerName}
-              className="text-black p-1"
-              name="name_id"
-              id="name_id"
-              required
-            />
-          </div>
-          <div className="m-1">
-            <label className="w-1/4 inline-block">Birthyear: </label>
-            <select name="birthyear" className="text-black w-1/6">
-              {renderBirthYearsOptions()}
-            </select>
-          </div>
-          <div className="m-1">
-            <label className="w-1/4 inline-block">Gender: </label>
-            <select name="gender" className="text-black w-1/6">
-              {renderGenderOptions()}
-            </select>
-          </div>
-          <div className="m-1">
-            <label className="w-1/4 inline-block">Chessclub: </label>
-            <input
-              onChange={updateChessclub}
-              value={chessclub_id}
-              className="text-black p-1"
-              name="chessclub_id"
-              id="chessclub_id"
-              required
-            />
-          </div>
-          <div className="my-4">
-            <button><SaveIcon /></button>
-          </div>
-        </form>
-     
+        <div className={`${lato.className} h-full overflow-hidden`}>
+          <h1 className="text-3xl font-bold underline small-caps text-center my-8">edit a chessplayer</h1>
+          <form className="w-3/4 mx-auto my-10 p-12 relative bg-neutral-700" action={formAction}>
+            <Link href='/chessplayers'><BackIcon /></Link>
+            <div className="m-1">
+              <label className="w-1/4 inline-block">SSF-id: </label>
+              <input type="hidden" name="ssf_id" value={params.id} />                          
+              <input
+                value={params.id}
+                className="text-black p-1"
+                name="ssf_id"
+                id="ssf_id"
+                disabled
+              />        
+            </div>                
+            <div className="m-1">
+              <label className="w-1/4 inline-block">Fide-id: </label>                        
+              {fideId != null && 
+              <input
+                value={fideId}
+                className="text-black p-1"
+                name="fide_id"
+                id="fide_id"
+                disabled
+              />}
+              {fideId == null && 
+              <input
+                value={fideId}
+                className="text-black p-1"
+                name="fide_id"
+                id="fide_id"              
+              />}
+            </div>
+            <div className="m-1">
+              <label className="w-1/4 inline-block">Name: </label>
+              <input
+                onChange={updateChessplayerName}
+                value={chessplayerName}
+                className="text-black p-1"
+                name="name_id"
+                id="name_id"
+                required
+              />
+            </div>
+            <div className="m-1">
+              <label className="w-1/4 inline-block">Birthyear: </label>
+              <select name="birthyear" className="text-black w-1/6">
+                {renderBirthYearsOptions()}
+              </select>
+            </div>
+            <div className="m-1">
+              <label className="w-1/4 inline-block">Gender: </label>
+              <select name="gender" className="text-black w-1/6">
+                {renderGenderOptions()}
+              </select>
+            </div>
+            <div className="m-1">
+              <label className="w-1/4 inline-block">Chessclub: </label>
+              <input
+                onChange={updateChessclub}
+                value={chessclub_id}
+                className="text-black p-1"
+                name="chessclub_id"
+                id="chessclub_id"
+                required
+              />
+            </div>
+            <div className="my-4">
+              <button><SaveIcon /></button>
+            </div>
+          </form>
+          <p aria-live="polite" className="text-white">
+            {state?.message}
+          </p>
+        </div>
     </>
   );
 };

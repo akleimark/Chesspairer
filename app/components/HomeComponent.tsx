@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { cookies } from 'next/headers';
-import { User } from '../lib/definitions';
 
 async function getUserData()
 {
@@ -24,10 +23,10 @@ export default async function HomeComponent(props : any)
     const src = '/' + props.imageName;
     return (
         <>        
-            <p className="p-2">
+            <p className="p-2 text-center">
                 Welcome, {user.chessplayer.firstname}!
             </p>
-            <Image className='startPage rounded-md' src={src} alt="Chess" width={1000} height={800}/>
+            <Image className='my-4 mx-auto rounded-md' src={src} alt="Chess" width={1000} height={800}/>
         </>
     )
 }

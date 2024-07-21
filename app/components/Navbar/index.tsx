@@ -5,26 +5,26 @@ const Navbar = () =>
 {
   return (
     <>
-      <nav>
+      <nav className="m-0 p-0 bg-lime-900">
         <Logo />
-            <ul>                
-                <li>
-                    <Link className="text-white opacity-70 hover:opacity-100 duration-300" href="/">
+            <ul className="float-right">                
+                <li className="float-left">
+                    <Link className="py-4 px-5 block text-xl text-white opacity-70 hover:opacity-100 duration-300" href="/">
                       Home
                     </Link>
                 </li>
-                <li>
-                    <Link className="text-white opacity-70 hover:opacity-100 duration-300" href="/tournaments">
+                <li className="float-left">
+                    <Link className="py-4 px-5 block text-xl text-white opacity-70 hover:opacity-100 duration-300" href="/tournaments">
                       Tournaments
                     </Link>
                 </li>
-                <li>
-                    <Link className="text-white opacity-70 hover:opacity-100 duration-300" href="/chessplayers">
+                <li className="float-left">
+                    <Link className="py-4 px-5 block text-xl text-white opacity-70 hover:opacity-100 duration-300" href="/chessplayers">
                       Chessplayers
                     </Link>
                 </li>
-                <li>
-                    <Link className="text-white opacity-70 hover:opacity-100 duration-300" href="/about">
+                <li className="float-left">
+                    <Link className="py-4 px-5 block text-xl text-white opacity-70 hover:opacity-100 duration-300" href="/about">
                       About
                     </Link>
                 </li>                

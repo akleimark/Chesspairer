@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Open_Sans } from "next/font/google";
+import { Lato } from "next/font/google";
 import "./globals.css"
+import "./reset.css"
 import Navbar from "./components/Navbar";
 import Logout from "./components/Logout";
 import { cookies } from "next/headers";
 import { CookiesProvider } from 'next-client-cookies/server';
 
-const openSand = Open_Sans({subsets: ["latin"]})
+const lato = Lato({subsets: ["latin"], weight:'700'});
 
 export const metadata: Metadata = 
 {
@@ -14,7 +15,6 @@ export const metadata: Metadata =
   description: "",
   authors: [{name : "Anders Kleimark"}]
 };
-
 
 export default async function RootLayout({
   children,
@@ -25,15 +25,15 @@ export default async function RootLayout({
   const isLoggedIn = cookies().get('user-email');
 
   return (
-      <html lang="en">
-        <body className={openSand.className}>                                 
+      <html lang="en" className={lato.className}>
+        <body className="text-white h-[90vh] bg-neutral-800">                                 
         { isLoggedIn &&
           <>
           <Navbar />
           <Logout />
           </>
         }                    
-          <div className="wrapper">
+          <div className="wrapper px-6 h-full -mt-4">
           <CookiesProvider>
             {children}     
           </CookiesProvider>              
