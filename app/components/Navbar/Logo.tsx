@@ -4,8 +4,8 @@ import Image from 'next/image'
 const Logo = () =>
 {
     return (
-        <div className='float-left py-1 px-6'>
-            <Image src={logo} alt="Chess" width={30} height={30}/> 
+        <div className='float-left my-2 py-0 px-6'>
+            <Image src={logo} alt="Chess" height={44}/> 
         </div>
     )
 }

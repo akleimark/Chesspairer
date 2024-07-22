@@ -26,7 +26,7 @@ export default async function RootLayout({
 
   return (
       <html lang="en" className={lato.className}>
-        <body className="text-white h-[90vh] bg-neutral-800">                                 
+        <body className="text-white h-full overflow-hidden bg-neutral-800">                                 
         { isLoggedIn &&
           <>
           <Navbar />

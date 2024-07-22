@@ -3,10 +3,22 @@
 @tailwind components;
 @tailwind utilities;
 
+html 
+{
+	height: 100%;
+}
+
+body 
+{
+	min-height: 100%;
+}
+
+
 .small-caps
 {
 	font-variant: small-caps;
 }
+
 
 #logout
 {	
@@ -22,22 +34,11 @@
 	height:50px;
 }
 
-
 nav:after 
 {
 	content:"";
 	display:table;
 	clear:both;
 }
-
-nav ul 
-{
-	margin-right: 68px;
-}
 	
-
-.h-9-10
-{
-	height: 88%;
-}
 
