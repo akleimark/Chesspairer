@@ -42,12 +42,12 @@ export default async function Chessplayers()
         {chessplayerContainer &&
             chessplayerContainer?.chessplayers?.rows?.map((chessplayer:Chessplayer) => (
               <tr className="border-solid border-2 border-white-600" key={chessplayer.ssf_id}>
-                <td className="p-1 bg-pink-950 align-middle">{chessplayer.ssf_id}</td>
-                <td className="p-1 bg-pink-950 align-middle">{chessplayer.firstname}</td>
-                <td className="p-1 bg-pink-950 align-middle">{chessplayer.lastname}</td>
-                <td className="p-1 bg-pink-950 align-middle">{chessplayer.birthyear}</td>
-                <td className="p-1 bg-pink-950 align-middle">{chessplayer.chessclub_id}</td>
-                <td className="p-1 bg-pink-950 align-middle"><Link href={`/chessplayers/edit/${chessplayer.ssf_id}`}><EditIcon /></Link></td>
+                <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.ssf_id}</td>
+                <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.firstname}</td>
+                <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.lastname}</td>
+                <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.birthyear}</td>
+                <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.chessclub_id}</td>
+                <td className="opacity-80 p-1 bg-lime-900 align-middle"><Link href={`/chessplayers/edit/${chessplayer.ssf_id}`}><EditIcon /></Link></td>
               </tr>
             ))}              
         </tbody>

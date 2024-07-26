@@ -97,17 +97,17 @@ export default function TournamentPlayersPage()
             className="border-solid border-2 border-white-600"
             key={chessplayer.ssf_id}
           >
-            <td className="p-1 bg-pink-950 align-middle">
+            <td className="opacity-80 p-1 bg-lime-900 align-middle">
               {chessplayer.ssf_id}
             </td>
-            <td className="p-1 bg-pink-950 align-middle">
+            <td className="opacity-80 p-1 bg-lime-900 align-middle">
               {chessplayer.firstname}
             </td>
-            <td className="p-1 bg-pink-950 align-middle">
+            <td className="opacity-80 p-1 bg-lime-900 align-middle">
               {chessplayer.lastname}
             </td>
             <td
-              className="p-1 bg-pink-950 align-middle"
+              className="opacity-80 p-1 bg-lime-900 align-middle"
               onClick={(event) =>
                 addTournamentplayer(event, chessplayer.ssf_id)
               }
@@ -138,16 +138,16 @@ export default function TournamentPlayersPage()
               className="border-solid border-2 border-white-600"
               key={player.chessplayer_id}
             >
-              <td className="p-1 bg-pink-950 align-middle">
+              <td className="opacity-80 p-1 bg-lime-900 align-middle">
                 {player.chessplayer_id}
               </td>
-              <td className="p-1 bg-pink-950 align-middle">
+              <td className="opacity-80 p-1 bg-lime-900 align-middle">
                 {player.firstname}
               </td>
-              <td className="p-1 bg-pink-950 align-middle">
+              <td className="opacity-80 p-1 bg-lime-900 align-middle">
                 {player.lastname}
               </td>
-              <td className="p-1 bg-pink-950 align-middle"
+              <td className="opacity-80 p-1 bg-lime-900 align-middle"
                 onClick={(event) =>
                 removeTournamentplayer(event, player.chessplayer_id)
                 }

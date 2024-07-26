@@ -88,13 +88,13 @@ export default async function TournamentPage()
           {tournaments &&
               tournaments?.tournaments?.rows?.map((tournament:Tournament) => (
                 <tr className="border-solid border-2 border-white-600" key={tournament.id}>                  
-                  <td className="p-1 bg-pink-950 align-middle">{tournament.name}</td>
-                  <td className="p-1 bg-pink-950 align-middle">{tournament.pairingsystem}</td>
-                  <td className="p-1 bg-pink-950 align-middle">{tournament.number_of_rounds}</td>
-                  <td className="p-1 bg-pink-950 align-middle">{tournament.startdate}</td>
-                  <td className="p-1 bg-pink-950 align-middle">{tournament.enddate}</td>
-                  <td className="p-1 bg-pink-950 align-middle"><Link href={`/tournaments/edit/${tournament.id}`}><EditIcon /></Link></td>
-                  <td className="p-1 bg-pink-950 align-middle">{renderSelectTournamentRow(tournament.id)}</td>
+                  <td className="opacity-80 p-1 bg-lime-900 align-middle">{tournament.name}</td>
+                  <td className="opacity-80 p-1 bg-lime-900 align-middle">{tournament.pairingsystem}</td>
+                  <td className="opacity-80 p-1 bg-lime-900 align-middle">{tournament.number_of_rounds}</td>
+                  <td className="opacity-80 p-1 bg-lime-900 align-middle">{tournament.startdate}</td>
+                  <td className="opacity-80 p-1 bg-lime-900 align-middle">{tournament.enddate}</td>
+                  <td className="opacity-80 p-1 bg-lime-900 align-middle"><Link href={`/tournaments/edit/${tournament.id}`}><EditIcon /></Link></td>
+                  <td className="opacity-80 p-1 bg-lime-900 align-middle">{renderSelectTournamentRow(tournament.id)}</td>
                 </tr>
               ))}                            
           </tbody>

@@ -93,7 +93,7 @@ const EditTournament = () => {
     <>            
       <div className={lato.className}>
         <h1 className="text-3xl font-bold underline small-caps text-center my-8">edit a tournament</h1>
-        <form className="w-3/4 mx-auto my-10 p-12 relative bg-neutral-700" action={formAction}>
+        <form className="text-xl w-3/4 mx-auto my-10 p-12 relative bg-neutral-700" action={formAction}>
           <Link href="/tournaments">
             <BackIcon />
           </Link>
@@ -102,7 +102,7 @@ const EditTournament = () => {
             <input type="hidden" name="tournament_id" value={params.id} />
             <input
               value={params.id}
-              className="text-black p-1"
+              className="text-black p-1 w-96"
               name="tournament_id"
               id="tournament_id"
               disabled
@@ -115,7 +115,7 @@ const EditTournament = () => {
                 setTournamentName(event.target.value);
               }}
               value={tournamentName}
-              className="text-black p-1"
+              className="text-black p-1 w-96"
               name="tournament_name"
               id="tournament_name"
               required
@@ -156,7 +156,7 @@ const EditTournament = () => {
               onChange={(event) => {
                 setNumberOfRounds(parseInt(event.target.value));
               }}
-              className="text-black w-1/6 p-1"
+              className="text-black w-96 p-1"
             >
               {renderNumberOfRoundsOptions()}
             </select>
@@ -165,7 +165,7 @@ const EditTournament = () => {
             <label className="w-1/4 inline-block">Pairingsystem: </label>
             <select
               name="tournament_pairingsystem"
-              className="text-black w-1/6 p-1"
+              className="text-black w-96 p-1"
               onChange={(event) => {
                 setPairingsystem(event.target.value);
               }}

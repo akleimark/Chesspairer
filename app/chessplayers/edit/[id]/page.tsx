@@ -106,14 +106,14 @@ const EditChessplayer = () =>
     <>      
         <div className={`${lato.className} h-full overflow-hidden`}>
           <h1 className="text-3xl font-bold underline small-caps text-center my-8">edit a chessplayer</h1>
-          <form className="w-3/4 mx-auto my-10 p-12 relative bg-neutral-700" action={formAction}>
+          <form className="text-xl w-3/4 mx-auto my-10 p-12 relative bg-neutral-700" action={formAction}>
             <Link href='/chessplayers'><BackIcon /></Link>
             <div className="m-1">
               <label className="w-1/4 inline-block">SSF-id: </label>
               <input type="hidden" name="ssf_id" value={params.id} />                          
               <input
                 value={params.id}
-                className="text-black p-1"
+                className="text-black p-1 w-96"
                 name="ssf_id"
                 id="ssf_id"
                 disabled
@@ -124,7 +124,7 @@ const EditChessplayer = () =>
               {fideId != null && 
               <input
                 value={fideId}
-                className="text-black p-1"
+                className="text-black p-1 w-96"
                 name="fide_id"
                 id="fide_id"
                 disabled
@@ -132,7 +132,7 @@ const EditChessplayer = () =>
               {fideId == null && 
               <input
                 value={fideId}
-                className="text-black p-1"
+                className="text-black p-1 w-96"
                 name="fide_id"
                 id="fide_id"              
               />}
@@ -142,7 +142,7 @@ const EditChessplayer = () =>
               <input
                 onChange={updateChessplayerName}
                 value={chessplayerName}
-                className="text-black p-1"
+                className="text-black p-1 w-96"
                 name="name_id"
                 id="name_id"
                 required
@@ -150,13 +150,13 @@ const EditChessplayer = () =>
             </div>
             <div className="m-1">
               <label className="w-1/4 inline-block">Birthyear: </label>
-              <select name="birthyear" className="text-black w-1/6">
+              <select name="birthyear" className="text-black w-1/6 p-1">
                 {renderBirthYearsOptions()}
               </select>
             </div>
             <div className="m-1">
               <label className="w-1/4 inline-block">Gender: </label>
-              <select name="gender" className="text-black w-1/6">
+              <select name="gender" className="text-black w-1/6 p-1">
                 {renderGenderOptions()}
               </select>
             </div>
@@ -165,7 +165,7 @@ const EditChessplayer = () =>
               <input
                 onChange={updateChessclub}
                 value={chessclub_id}
-                className="text-black p-1"
+                className="text-black p-1 w-96"
                 name="chessclub_id"
                 id="chessclub_id"
                 required

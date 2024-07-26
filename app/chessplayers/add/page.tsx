@@ -55,19 +55,19 @@ const AddChessplayer = () =>
        <>
           <div className={lato.className}>
             <h1 className="text-3xl font-bold underline small-caps text-center my-8">add a chessplayer</h1>
-            <form className='w-3/4 mx-auto my-10 p-12 relative bg-neutral-700' action={formAction}>
+            <form className='text-xl w-3/4 mx-auto my-10 p-12 relative bg-neutral-700' action={formAction}>
               <Link href='/chessplayers'><BackIcon /></Link>
                 <div className="m-1">
                     <label className='w-1/4 inline-block'>SSF-id: </label>
-                    <input className="text-black p-1" name="ssf_id" id="ssf_id" required/>
+                    <input className="text-black p-1 w-96" name="ssf_id" id="ssf_id" required/>
                 </div>
                 <div className="m-1">
                     <label className='w-1/4 inline-block'>FIDE-id: </label>
-                    <input className="text-black p-1" name="fide_id" id="fide_id"/>
+                    <input className="text-black p-1 w-96" name="fide_id" id="fide_id"/>
                 </div>
                 <div className="m-1">
                 <label className='w-1/4 inline-block'>Name: </label>
-                <input className="text-black p-1" name="name_id" id="name_id" required/>
+                <input className="text-black p-1 w-96" name="name_id" id="name_id" required/>
               </div>
               <div className="m-1">
                 <label className='w-1/4 inline-block'>Birthyear: </label>
@@ -83,7 +83,7 @@ const AddChessplayer = () =>
               </div>
               <div className="m-1">
                 <label className='w-1/4 inline-block'>Chessclub: </label>
-                <input className="text-black p-1" name="chessclub_id" id="chessclub_id" required />
+                <input className="text-black p-1 w-96" name="chessclub_id" id="chessclub_id" required />
               </div>
               <div className="my-4">
                 <button className="no-border"><SaveIcon /></button>
