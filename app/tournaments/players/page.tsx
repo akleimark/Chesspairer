@@ -167,7 +167,7 @@ export default function TournamentPlayersPage()
         <h1 className="text-3xl font-bold underline small-caps text-center my-8">
           tournament players
         </h1>
-        <div className="mx-auto my-10 p-12 relative bg-neutral-700 h-4/5">
+        <div className="mx-auto my-10 p-12 relative bg-neutral-700 h-3/4">
           <Link href="/tournaments">
             <BackIcon />
           </Link>

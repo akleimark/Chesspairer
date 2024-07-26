@@ -10,10 +10,10 @@ const About = () =>
     <> 
       <div className={`${lato.className} h-full overflow-hidden`}>
         <h1 className="text-3xl font-bold underline small-caps text-center my-8">about</h1>
-        <p className="text-center">
+        <p className="text-center text-xl">
           This application is about pairing chess tournaments.
         </p>
-        <Image className='my-4 mx-auto rounded-md' src={chessImage} alt="Chess" width={1100} height={800}/>
+        <Image className='my-4 mx-auto rounded-md' src={chessImage} alt="Chess" height={650}/>
       </div>
     </>
   );

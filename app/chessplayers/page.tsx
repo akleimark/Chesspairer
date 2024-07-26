@@ -28,7 +28,7 @@ export default async function Chessplayers()
     <div className={`${lato.className} h-full overflow-hidden`}>
       <h1 className="text-3xl font-bold underline small-caps text-center my-8">chessplayers</h1>
       <table className="text-center mt-2 mb-auto w-full">
-        <thead>
+        <thead className="text-xl">
           <tr className="border-solid border-2 border-white-600 bg-lime-900">
             <th className="p-5 font-semibold">#</th>
             <th className="p-5 font-semibold">Firstname</th>
@@ -38,7 +38,7 @@ export default async function Chessplayers()
             <th className="p-5 font-semibold">Edit</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="text-lg">
         {chessplayerContainer &&
             chessplayerContainer?.chessplayers?.rows?.map((chessplayer:Chessplayer) => (
               <tr className="border-solid border-2 border-white-600" key={chessplayer.ssf_id}>
@@ -53,7 +53,7 @@ export default async function Chessplayers()
         </tbody>
       </table>
 
-      <div className="buttonPanel">
+      <div className="fixed bottom-16">
         <Link href='/chessplayers/add'>
           <button
             className='p-2 rounded-md border-solid border-2 border-white-600' id="addChessplayer">

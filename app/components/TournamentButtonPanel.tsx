@@ -1,15 +1,13 @@
 import Link from "next/link"
 import { AddIcon, PlayersIcon } from "./IconComponents"
 
-
 export function TournamentButtonPanel(props : any)
-{
-    const userId = props.userId;
+{    
     const selectedTournament = props.selectedTournament;
 
     return (
         <>
-        <div className="buttonPanel">
+        <div className="fixed bottom-16">
           <Link href='/tournaments/add'>
             <button className='p-2 rounded-md border-solid border-2 border-white-600' id="addTournament">
                 <AddIcon alt="New tournament" />            

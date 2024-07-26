@@ -45,9 +45,9 @@ const renderSelectTournamentRow = (id : number | undefined) =>
   return (
     <>
     {(selectedTournament == -1 || selectedTournament != id) && 
-    <form action={selectTournament}>
+    <form className="inline-block h-5" action={selectTournament}>
       <input type="hidden" name="selected_tournament" value={id} />
-      <button type="submit" className="fake-link">
+      <button type="submit">
         <AddIcon alt="selected" /> 
       </button>
     </form>
@@ -73,7 +73,7 @@ export default async function TournamentPage()
       <div className={`${lato.className} h-full overflow-hidden`}>
         <h1 className="text-3xl font-bold underline small-caps text-center my-8">tournaments</h1>
         <table className="text-center mt-2 mb-auto w-full">
-          <thead>
+          <thead className="text-xl">
             <tr className="border-solid border-2 border-white-600 bg-lime-900">            
               <th className="p-5 font-semibold">Name</th>
               <th className="p-5 font-semibold">Pairingsystem</th>
@@ -84,7 +84,7 @@ export default async function TournamentPage()
               <th className="p-5 font-semibold">Select</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-lg">
           {tournaments &&
               tournaments?.tournaments?.rows?.map((tournament:Tournament) => (
                 <tr className="border-solid border-2 border-white-600" key={tournament.id}>                  

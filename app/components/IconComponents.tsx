@@ -17,7 +17,7 @@ export function EditIcon(props: any)
     }
 
     return (
-        <Image className="my-0 mx-auto" src={editSign} alt={alt} width={20} height={20}/>
+        <Image className="my-0 mx-auto" src={editSign} alt={alt} height={20}/>
     )
 }
 
@@ -30,7 +30,7 @@ export function AddIcon(props: any)
     }
 
     return (
-        <Image className="my-0 mx-auto cursor-pointer" src={plusSign} alt={alt} width={20} height={20}/>
+        <Image className="my-0 mx-auto cursor-pointer" src={plusSign} alt={alt} height={20}/>
     )
 }
 
@@ -87,7 +87,7 @@ export function SelectedIcon(props: any)
     }
 
     return (
-        <Image className="my-0 mx-auto" src={selectedIcon} alt={alt} width={20} height={20}/> 
+        <Image className="my-0 mx-auto" src={selectedIcon} alt={alt} height={20}/> 
     )
 }
 

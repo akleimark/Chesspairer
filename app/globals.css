@@ -26,13 +26,6 @@ body
   	top: 20px;
 }
 
-.buttonPanel
-{
-	position:fixed;
-	bottom:25px;
-	width:100%;
-	height:50px;
-}
 
 nav:after 
 {
