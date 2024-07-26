@@ -48,11 +48,11 @@ const AddTournament = () =>
         <>
         <div className={lato.className}>
             <h1 className="text-3xl font-bold underline small-caps text-center my-8">new tournament</h1>
-            <form className='w-3/4 mx-auto my-10 p-12 relative bg-neutral-700' action={formAction}>
+            <form className='text-xl w-3/4 mx-auto my-10 p-12 relative bg-neutral-700' action={formAction}>
                 <Link href='/tournaments'><BackIcon /></Link>
                 <div className="m-1">
                     <label className='w-1/4 inline-block'>Name: </label>
-                    <input className="text-black p-1" name="tournament_name" id="tournament_name" required/>
+                    <input className="text-black p-1 w-96" name="tournament_name" id="tournament_name" required/>
                 </div>
                 <div className="m-1">
                     <label className='w-1/4 inline-block'>Startdate: </label>
@@ -64,13 +64,13 @@ const AddTournament = () =>
                 </div>
                 <div className="m-1">
                     <label className='w-1/4 inline-block'>Number of rounds: </label>
-                    <select name="number_of_rounds" className="text-black w-1/6 p-1">
+                    <select name="number_of_rounds" className="text-black p-1 w-96">
                         {renderNumberOfRoundsOptions()}
                     </select>
                 </div>
                 <div className="m-1">
                     <label className='w-1/4 inline-block'>Pairingsystem: </label>
-                    <select name="tournament_pairingsystem" className="text-black w-1/6 p-1">
+                    <select name="tournament_pairingsystem" className="text-black w-96 p-1">
                         {renderTournamentPairingsystemOptions()}
                     </select>
                 </div>

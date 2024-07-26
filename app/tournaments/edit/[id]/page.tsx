@@ -1,11 +1,13 @@
 "use client";
 import { useParams } from "next/navigation";
-import { useEffect, useState, ChangeEvent, SetStateAction } from "react";
+import { useEffect, useState } from "react";
 import { saveTournamentAction, deleteTournamentAction } from "@/app/lib/actions";
 import Link from "next/link";
 import { useFormState } from "react-dom";
 import { BackIcon, SaveIcon, DeleteIcon } from "@/app/components/IconComponents";
 import { Lato } from "next/font/google";
+import { useCookies } from "next-client-cookies";
+import { useRouter } from "next/navigation";
 
 const initialState = {
   message: "",
@@ -21,6 +23,8 @@ const EditTournament = () => {
   const [numberOfRounds, setNumberOfRounds] = useState(0);
   const [startdate, setStartdate] = useState("");
   const [enddate, setEnddate] = useState("");
+  const userEmail = useCookies().get('user-email');
+  const router = useRouter();
 
   const renderNumberOfRoundsOptions = () => {
     const options = [];
@@ -80,14 +84,24 @@ const EditTournament = () => {
   {
     fetch(`/api/tournament/${params.id}`, { cache: "no-store" })
       .then((res) => res.json())
-      .then(({tournament}) => {          
+      .then(({tournament}) => {   
+          if(tournament.user_email != userEmail)
+          {            
+            router.push('/tournaments');
+            return;
+          }       
           setTournamentName(tournament.name);
           setStartdate(tournament.startdate);
           setEnddate(tournament.enddate);
           setNumberOfRounds(tournament.number_of_rounds);
           setPairingsystem(tournament.pairingsystem);  
-      });
-  }, [params]);
+      },
+    (error) => 
+    {
+      router.push('/tournaments');
+      return;
+    });
+  }, [params, userEmail, router]);
 
   return (
     <>            

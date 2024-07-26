@@ -6,6 +6,7 @@ import { BackIcon, SaveIcon } from "@/app/components/IconComponents";
 import Link from "next/link";
 import { useFormState } from 'react-dom'
 import { Lato } from "next/font/google";
+import { useRouter } from "next/navigation";
 
 const lato = Lato({subsets: ["latin"], weight:'400'});
 
@@ -17,7 +18,6 @@ const initialState =
 const EditChessplayer = () => 
 {
   const [state, formAction] = useFormState(saveChessplayerAction, initialState)
-
   const updateChessclub = (event: ChangeEvent<HTMLInputElement>) => 
   {
     setChessclub(event.target.value);
@@ -34,18 +34,31 @@ const EditChessplayer = () =>
   const [chessplayerBirthyear, setChessplayerBirthyear] = useState(1900);
   const [chessclub_id, setChessclub] = useState('');
   const params = useParams();
+  const router = useRouter();
 
   useEffect(() => {
-    fetch(`/api/chessplayer/${params.id}`, { cache: "no-store" })
-      .then((res) => res.json())
+   
+    fetch(`/api/chessplayer/${params.id}`, { cache: "no-store" })      
+      .then((res) => res.json())       
       .then((data) => {
+        if(data.result == 'null')
+        {
+          router.push("/chessplayers");
+          return;
+        }
         setFideId(data.result.fideid);
         setChessplayerName(data.result.firstname + ' ' + data.result.lastname);
         setChessplayerGender(data.result.gender);
         setChessplayerBirthyear(data.result.birthyear);        
         setChessclub(data.result.chessclub_id);        
-      });
-  }, [params]);
+      },
+    (error) =>
+    {
+      router.push("/chessplayers");
+      return;
+    });      
+
+  }, [params, router]);
 
   const renderBirthYearsOptions = () => {
     const options = [];
