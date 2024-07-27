@@ -353,6 +353,34 @@ export async function getTournamentDataAction()
     }
 }
 
+export async function getAllUserTournamentsAction()
+{
+	try
+	{
+		const userId = cookies().get('user-email')?.value; 
+		const response:any = await fetch(`http://localhost:3000/api/tournaments/${userId}`, { cache: "no-store" });
+    	return ((await response).json());
+	}
+	catch(error)
+	{
+		console.log(error);
+	}
+}
+
+export async function selectTournamentAction(tournamentId : number | undefined)
+{
+	console.log("Tournament: " + tournamentId);
+	if(tournamentId != undefined)
+	{
+		let cookieValue : string = '';
+		if(tournamentId != undefined)
+		{
+			cookieValue += tournamentId;
+			cookies().set('selected_tournament', cookieValue);
+		}		
+	}
+}
+
 export async function getAvailablePlayersAction()
 {
 	const tournamentId = cookies().get('selected_tournament')?.value;

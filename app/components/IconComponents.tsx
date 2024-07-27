@@ -30,7 +30,7 @@ export function AddIcon(props: any)
     }
 
     return (
-        <Image className="my-0 mx-auto cursor-pointer" src={plusSign} alt={alt} height={20}/>
+        <Image className="my-0 mx-auto cursor-pointer" src={plusSign} alt={alt} height={20} onClick={props.onClick} />
     )
 }
 

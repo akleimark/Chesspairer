@@ -5,8 +5,6 @@ export default function Footer()
             <p className="text-center italic text-sm text-slate-400">
                 Development: Anders Kleimark
             </p>
-
         </footer>
-
     )
 }

@@ -1,73 +1,57 @@
+"use client"
 import { Tournament } from "../lib/definitions";
 import Link from "next/link";
-import { cookies } from "next/headers";
+import { useCookies } from 'next-client-cookies';
 import {AddIcon, EditIcon, SelectedIcon, PlayersIcon} from "@/app/components/IconComponents"
 import { TournamentButtonPanel } from "../components/TournamentButtonPanel";
 import { Lato } from "next/font/google";
-
+import { useState, useEffect } from "react";
+import {selectTournamentAction} from "@/app/lib/actions"
 const lato = Lato({subsets: ["latin"], weight:'400'});
 
-async function getAllUserTournaments(userId : string | undefined)
+export default function TournamentPage()
 {
-  "use server"
-  try
-  {    
-    const response:any = await fetch(`http://localhost:3000/api/tournaments/${userId}`, { cache: "no-store" });
-    return ((await response).json());
-
-  }
-  catch(error)
+  const renderSelectTournamentRow = (id : number | undefined) =>
   {
-    console.log(error);
-  }
-}
+    let selectedTournamentNumber : number = -1;
 
-async function selectTournament(formData : FormData)
-{
-  "use server"  
-  const selectedTournament : string = formData.get('selected_tournament') as string;
-  cookies().set('selected_tournament', selectedTournament);
-}
-
-const renderSelectTournamentRow = (id : number | undefined) =>
-{
-  let selectedTournament : number;
-  const cookieValue = cookies().get('selected_tournament')?.value; 
-  if( cookieValue == undefined)
-  {
-    selectedTournament = -1;
-  }
-  else
-  {
-    selectedTournament = parseInt(cookieValue);
-  }
-
-  return (
-    <>
-    {(selectedTournament == -1 || selectedTournament != id) && 
-    <form className="inline-block h-5" action={selectTournament}>
-      <input type="hidden" name="selected_tournament" value={id} />
-      <button type="submit">
-        <AddIcon alt="selected" /> 
-      </button>
-    </form>
-    }
+    if( selectedTournament == undefined)
     {
-      (selectedTournament == id) &&       
-      <button type="button" className="fake-link">
-        <SelectedIcon /> 
-      </button>
+      selectedTournamentNumber = -1;
     }
-    </>
-  )
-}
-
-export default async function TournamentPage()
-{
-  const userId = cookies().get('user-email')?.value; 
-  const selectedTournament =  cookies().get('selected_tournament')?.value; 
-  const tournaments : any = await getAllUserTournaments(userId);
+    else
+    {
+      selectedTournamentNumber = parseInt(selectedTournament);
+    }
     
+    return (
+      <>
+        {
+          (selectedTournamentNumber == -1 || selectedTournamentNumber != id) && 
+          <AddIcon alt="selected" onClick={async () => {
+            await selectTournamentAction(id)}} />
+        }     
+        
+        {
+          (selectedTournamentNumber == id) &&             
+            <SelectedIcon />       
+        }
+      </>
+    )    
+  }
+
+  const userId = useCookies().get('user-email'); 
+  const selectedTournament =  useCookies().get('selected_tournament'); 
+  const [tournaments, setTournaments] = useState<Array<Tournament>>();
+
+  useEffect(() => {fetch(`http://localhost:3000/api/tournaments/${userId}`, { cache: "no-store" })
+  .then((res) => res.json())
+  .then(({ tournaments }) => 
+  {
+      setTournaments(tournaments.rows);      
+  });
+  }, [userId]);
+
     return (
     <>      
       <div className={`${lato.className} h-full overflow-hidden`}>
@@ -84,10 +68,9 @@ export default async function TournamentPage()
               <th className="p-5 font-semibold">Select</th>
             </tr>
           </thead>
-          <tbody className="text-lg">
-          {tournaments &&
-              tournaments?.tournaments?.rows?.map((tournament:Tournament) => (
-                <tr className="border-solid border-2 border-white-600" key={tournament.id}>                  
+          <tbody className="text-lg">          
+            {tournaments?.map((tournament: Tournament) => (
+               <tr className="border-solid border-2 border-white-600" key={tournament.id}>
                   <td className="opacity-80 p-1 bg-lime-900 align-middle">{tournament.name}</td>
                   <td className="opacity-80 p-1 bg-lime-900 align-middle">{tournament.pairingsystem}</td>
                   <td className="opacity-80 p-1 bg-lime-900 align-middle">{tournament.number_of_rounds}</td>
@@ -95,11 +78,11 @@ export default async function TournamentPage()
                   <td className="opacity-80 p-1 bg-lime-900 align-middle">{tournament.enddate}</td>
                   <td className="opacity-80 p-1 bg-lime-900 align-middle"><Link href={`/tournaments/edit/${tournament.id}`}><EditIcon /></Link></td>
                   <td className="opacity-80 p-1 bg-lime-900 align-middle">{renderSelectTournamentRow(tournament.id)}</td>
-                </tr>
-              ))}                            
+               </tr>               
+            ))}                                                  
           </tbody>
         </table>
-        <TournamentButtonPanel userId={userId} selectedTournament={selectedTournament} />      
+        <TournamentButtonPanel userId={userId} selectedTournament={selectedTournament} />          
       </div>
     </>
   );
