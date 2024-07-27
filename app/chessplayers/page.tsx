@@ -27,31 +27,33 @@ export default async function Chessplayers()
     <>
     <div className={`${lato.className} h-full overflow-hidden`}>
       <h1 className="text-3xl font-bold underline small-caps text-center my-8">chessplayers</h1>
-      <table className="text-center mt-2 mb-auto w-full">
-        <thead className="text-xl">
-          <tr className="border-solid border-2 border-white-600 bg-lime-900">
-            <th className="p-5 font-semibold">#</th>
-            <th className="p-5 font-semibold">Firstname</th>
-            <th className="p-5 font-semibold">Lastname</th>
-            <th className="p-5 font-semibold">Birthyear</th>
-            <th className="p-5 font-semibold">Chessclub</th>
-            <th className="p-5 font-semibold">Edit</th>
-          </tr>
-        </thead>
-        <tbody className="text-lg">
-        {chessplayerContainer &&
-            chessplayerContainer?.chessplayers?.rows?.map((chessplayer:Chessplayer) => (
-              <tr className="border-solid border-2 border-white-600" key={chessplayer.ssf_id}>
-                <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.ssf_id}</td>
-                <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.firstname}</td>
-                <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.lastname}</td>
-                <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.birthyear}</td>
-                <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.chessclub_id}</td>
-                <td className="opacity-80 p-1 bg-lime-900 align-middle"><Link href={`/chessplayers/edit/${chessplayer.ssf_id}`}><EditIcon /></Link></td>
-              </tr>
-            ))}              
-        </tbody>
-      </table>
+      <div className="h-2/3 overflow-scroll">
+        <table className="text-center mt-2 mb-auto w-full table-auto">
+          <thead className="text-xl">
+            <tr className="border-solid border-2 border-white-600 bg-lime-900">
+              <th className="p-5 font-semibold">#</th>
+              <th className="p-5 font-semibold">Firstname</th>
+              <th className="p-5 font-semibold">Lastname</th>
+              <th className="p-5 font-semibold">Birthyear</th>
+              <th className="p-5 font-semibold">Chessclub</th>
+              <th className="p-5 font-semibold">Edit</th>
+            </tr>
+          </thead>
+          <tbody className="text-lg">
+          {chessplayerContainer &&
+              chessplayerContainer?.chessplayers?.rows?.map((chessplayer:Chessplayer) => (
+                <tr className="border-solid border-2 border-white-600" key={chessplayer.ssf_id}>
+                  <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.ssf_id}</td>
+                  <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.firstname}</td>
+                  <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.lastname}</td>
+                  <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.birthyear}</td>
+                  <td className="opacity-80 p-1 bg-lime-900 align-middle">{chessplayer.chessclub_id}</td>
+                  <td className="opacity-80 p-1 bg-lime-900 align-middle"><Link href={`/chessplayers/edit/${chessplayer.ssf_id}`}><EditIcon /></Link></td>
+                </tr>
+              ))}              
+          </tbody>
+        </table>
+      </div>
 
       <div className="fixed bottom-16">
         <Link href='/chessplayers/add'>

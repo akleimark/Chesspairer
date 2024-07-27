@@ -395,8 +395,9 @@ export async function getAvailablePlayersAction()
     }
 }
 
-export async function addTournamentplayerAction(tournamentId : number, chessplayerId : number)
+export async function addTournamentplayerAction(chessplayerId : number)
 {
+	const tournamentId = cookies().get("selected_tournament")?.value;
 	const response: any = await fetch(`http://localhost:3000/api/tournaments/addplayer`, 
 	{
 		method: 'POST',
@@ -406,8 +407,9 @@ export async function addTournamentplayerAction(tournamentId : number, chessplay
 	
 	return ((await response).json());
 }
-export async function removeTournamentplayerAction(tournamentId : number, chessplayerId : number)
+export async function removeTournamentplayerAction(chessplayerId : number)
 {
+	const tournamentId = cookies().get("selected_tournament")?.value;
 	const response: any = await fetch(`http://localhost:3000/api/tournaments/deleteplayer`, 
 	{
 		method: 'POST',
@@ -427,6 +429,7 @@ export async function searchAction(firstname : string, lastname : string)
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({ tournament_id: tournamentId, firstname: firstname, lastname : lastname }),
 	})
-	return ((await response).json());
-	
+	return ((await response).json());	
 }
+
+

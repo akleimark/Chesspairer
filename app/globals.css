@@ -26,12 +26,9 @@ body
   	top: 20px;
 }
 
-
 nav:after 
 {
 	content:"";
 	display:table;
 	clear:both;
 }
-	
-

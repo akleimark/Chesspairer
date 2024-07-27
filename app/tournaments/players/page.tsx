@@ -4,7 +4,7 @@ import { AddIcon, BackIcon, DeleteIcon } from "@/app/components/IconComponents";
 import { useEffect, useState } from "react";
 import { useCookies } from "next-client-cookies";
 import Link from "next/link";
-import { addTournamentplayerAction, removeTournamentplayerAction} from "@/app/lib/actions";
+import { addTournamentplayerAction, removeTournamentplayerAction, getTournamentDataAction} from "@/app/lib/actions";
 import { TournamentplayersSearchbar } from "@/app/components/Searchbars";
 import { Lato } from "next/font/google";
 
@@ -26,22 +26,6 @@ export default function TournamentPlayersPage()
         setChessplayers(data);
     }
 
-    async function removeTournamentplayer(event: any, playerId: number)
-    {
-        await removeTournamentplayerAction(tournamentId, playerId);
-        getTournamentplayers();
-        getAvailablePlayers();
-        document.getElementById("search")?.click();
-    }
-
-    async function addTournamentplayer(event: any, playerId: number) 
-    {
-        await addTournamentplayerAction(tournamentId, playerId);
-        getTournamentplayers();
-        getAvailablePlayers();
-        document.getElementById("search")?.click();
-    }
-
     async function getTournamentplayers() 
     {
         fetch(`http://localhost:3000/api/tournament/${tournamentId}`, { cache: "no-store"})
@@ -51,7 +35,7 @@ export default function TournamentPlayersPage()
             setTournament(tournament);
         });
     }
-
+    
     async function getAvailablePlayers() 
     {
         fetch(`http://localhost:3000/api/tournament/${tournamentId}/available-players`, { cache: "no-store" })
@@ -61,7 +45,7 @@ export default function TournamentPlayersPage()
             setChessplayers(chessplayers.rows);
         });
     }
-
+    
     useEffect(() => 
     {
         fetch(`http://localhost:3000/api/tournament/${tournamentId}`, {cache: "no-store"})
@@ -72,6 +56,11 @@ export default function TournamentPlayersPage()
         });
     }, [tournamentId]);
 
+    useEffect(() =>
+    {      
+        document.getElementById("search")?.click();             
+    }, []);
+  
   useEffect(() => {fetch(`http://localhost:3000/api/tournament/${tournamentId}/available-players`, { cache: "no-store" })
   .then((res) => res.json())
   .then(({ chessplayers }) => 
@@ -108,9 +97,14 @@ export default function TournamentPlayersPage()
             </td>
             <td
               className="opacity-80 p-1 bg-lime-900 align-middle"
-              onClick={(event) =>
-                addTournamentplayer(event, chessplayer.ssf_id)
-              }
+              onClick={async () => {
+                await addTournamentplayerAction(chessplayer.ssf_id).then()
+                {
+                  getTournamentplayers();
+                  getAvailablePlayers();
+                  document.getElementById("search")?.click();
+                }
+              }}
             >
               <AddIcon alt="add" height={20} />
             </td>
@@ -148,9 +142,14 @@ export default function TournamentPlayersPage()
                 {player.lastname}
               </td>
               <td className="opacity-80 p-1 bg-lime-900 align-middle"
-                onClick={(event) =>
-                removeTournamentplayer(event, player.chessplayer_id)
-                }
+                onClick={async () => {
+                  await removeTournamentplayerAction(player.chessplayer_id).then()
+                  {
+                    getTournamentplayers();
+                    getAvailablePlayers();
+                    document.getElementById("search")?.click();
+                  }
+                }}
               >
                 <DeleteIcon alt="delete" height={20} />
               </td>
@@ -173,13 +172,13 @@ export default function TournamentPlayersPage()
           </Link>
           <div className="grid grid-cols-2 gap-1">
             <div>
-              <h4 className="text-center font-bold">
+              <h4 className="text-center font-bold text-lg">
                 Available players ({chessplayers?.length})
               </h4>
               {showAvailablePlayers()}
             </div>
             <div>
-              <h4 className="text-center font-bold">
+              <h4 className="text-center font-bold text-lg">
                 Participants ({tournament?.players?.length})
               </h4>
               {showParticipants()}

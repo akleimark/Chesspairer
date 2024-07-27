@@ -61,7 +61,7 @@ export function DeleteIcon(props: any)
     }
 
     return (
-        <Image className="my-0 mx-auto cursor-pointer" src={deleteIcon} alt={alt} height={height}/>
+        <Image className="my-0 mx-auto cursor-pointer" src={deleteIcon} alt={alt} height={height} onClick={props.onClick}/>
     )
 }
 
