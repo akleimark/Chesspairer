@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { AddIcon, PlayersIcon } from "./IconComponents"
+import { AddIcon, PlayersIcon, TableIcon } from "./IconComponents"
 
 export function TournamentButtonPanel(props : any)
 {    
@@ -23,5 +23,31 @@ export function TournamentButtonPanel(props : any)
         }
         </div>   
         </>    
+    )
+}
+
+export function ToolsButtonPanel()
+{
+    const renderTableIcons = () =>
+    {
+        let content = [];
+
+        for(let players = 4; players <= 20; players+=2)
+        {
+             content.push(<TableIcon key={players} alt="Round Robin tables" numberOfPlayers={players} />)
+        }
+
+        return (
+           content            
+        )
+    }
+
+    return (
+        <>
+        <div className="fixed bottom-16">                           
+            {renderTableIcons()}                     
+        </div>   
+        </>
+
     )
 }

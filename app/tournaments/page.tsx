@@ -3,7 +3,7 @@ import { Tournament } from "../lib/definitions";
 import Link from "next/link";
 import { useCookies } from 'next-client-cookies';
 import {AddIcon, EditIcon, SelectedIcon, PlayersIcon} from "@/app/components/IconComponents"
-import { TournamentButtonPanel } from "../components/TournamentButtonPanel";
+import { TournamentButtonPanel } from "../components/Buttonpanels";
 import { Lato } from "next/font/google";
 import { useState, useEffect } from "react";
 import {selectTournamentAction} from "@/app/lib/actions"
@@ -56,7 +56,7 @@ export default function TournamentPage()
     <>      
       <div className={`${lato.className} h-full overflow-hidden`}>
         <h1 className="text-3xl font-bold underline small-caps text-center my-8">tournaments</h1>
-        <div className="h-2/3 overflow-scroll">
+        <div className="h-2/3 overflow-y-auto">
           <table className="text-center mt-2 mb-auto w-full">
             <thead className="text-xl">
               <tr className="border-solid border-2 border-white-600 bg-lime-900">            

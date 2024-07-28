@@ -6,6 +6,8 @@ import backIcon from "@/public/back_arrow.png";
 import selectedIcon from "@/public/selected.png";
 import playersIcon from "@/public/playersIcon.png"
 import logoutIcon from "@/public/logout-icon.png"
+import printerIcon from "@/public/printer-icon.png"
+import Link from "next/link";
 import Image from "next/image";
 
 export function EditIcon(props: any) 
@@ -105,3 +107,25 @@ export function LogoutIcon(props : any)
     )
 }
 
+export function PrinterIcon(props : any)
+{
+    const classes = props.className;
+    return (
+        <Image className={`my-0 mx-auto absolute ${classes}`} src={printerIcon} alt={'print'} height={22} id="print" onClick={props.onClick}/>
+    )
+}
+
+
+export function TableIcon(props : any)
+{
+    const numberOfPlayers : string = props.numberOfPlayers;    
+    return (
+        <>
+            <Link href={`/tools/tables/round-robin-${numberOfPlayers}-players`}>
+                <button className='p-2 mr-1 rounded-md border-solid border-2 border-white-600'>                    
+                    {numberOfPlayers}
+                </button>
+            </Link>
+        </>
+    )
+}

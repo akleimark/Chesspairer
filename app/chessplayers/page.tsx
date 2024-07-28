@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Chessplayer } from '../lib/definitions';
 import { AddIcon, EditIcon } from "../components/IconComponents";
 import { Lato } from "next/font/google";
-
 const lato = Lato({subsets: ["latin"], weight:'400'});
 
 async function getAllChessplayers()
@@ -27,7 +26,7 @@ export default async function Chessplayers()
     <>
     <div className={`${lato.className} h-full overflow-hidden`}>
       <h1 className="text-3xl font-bold underline small-caps text-center my-8">chessplayers</h1>
-      <div className="h-2/3 overflow-scroll">
+      <div className="h-2/3 overflow-y-auto">
         <table className="text-center mt-2 mb-auto w-full table-auto">
           <thead className="text-xl">
             <tr className="border-solid border-2 border-white-600 bg-lime-900">

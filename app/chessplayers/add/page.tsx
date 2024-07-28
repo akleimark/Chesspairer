@@ -18,38 +18,38 @@ const AddChessplayer = () =>
   const [state, formAction] = useFormState(addChessplayerAction, initialState)
 
     const renderBirthYearsOptions = () => 
-        {
-          const options = [];
+    {
+      const options = [];
+  
+      for (
+        let i = new Date().getFullYear() - 100;
+        i <= new Date().getFullYear();
+        i++
+      ) {
+        options.push(
+          <option key={i} value={i}>
+            {i}
+          </option>
+        );
+      }
+      return options;
+    };
       
-          for (
-            let i = new Date().getFullYear() - 100;
-            i <= new Date().getFullYear();
-            i++
-          ) {
-            options.push(
-              <option key={i} value={i}>
-                {i}
-              </option>
-            );
-          }
-          return options;
-        };
-      
-        const renderGenderOptions = () => 
-        {
-          const options = [];
-          options.push(
-            <option key="male" value="male">
-              Male
-            </option>
-          );
-          options.push(
-            <option key="female" value="female">
-              Female
-            </option>
-          );
-          return options;
-        };
+    const renderGenderOptions = () => 
+    {
+      const options = [];
+      options.push(
+        <option key="male" value="male">
+          Male
+        </option>
+      );
+      options.push(
+        <option key="female" value="female">
+          Female
+        </option>
+      );
+      return options;
+    };
 
     return (
        <>

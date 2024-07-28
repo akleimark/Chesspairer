@@ -7,7 +7,6 @@ import Logout from "./components/Logout";
 import { cookies } from "next/headers";
 import { CookiesProvider } from 'next-client-cookies/server';
 import Footer from "./components/Footer";
-
 const lato = Lato({subsets: ["latin"], weight:'700'});
 
 export const metadata: Metadata = 
@@ -36,7 +35,7 @@ export default async function RootLayout({
         }                    
           <div className="wrapper px-6 h-full -mt-4 relative">
           <CookiesProvider>
-            {children}     
+            {children}             
           </CookiesProvider>              
           </div>
           <Footer />
