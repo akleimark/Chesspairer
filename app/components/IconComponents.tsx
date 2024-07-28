@@ -103,7 +103,7 @@ export function PlayersIcon()
 export function LogoutIcon(props : any)
 {
     return (
-        <Image className="my-0 mx-auto absolute" src={logoutIcon} alt={'logout'} height={22} id="logout" onClick={props.onClick}/>
+        <Image className="my-0 mx-auto absolute cursor-pointer" src={logoutIcon} alt={'logout'} height={22} id="logout" onClick={props.onClick}/>
     )
 }
 

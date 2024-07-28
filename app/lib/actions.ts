@@ -432,4 +432,12 @@ export async function searchAction(firstname : string, lastname : string)
 	return ((await response).json());	
 }
 
+export async function logoutAction()
+{    
+    cookies().getAll().map((cookie) =>
+    {
+		cookies().delete(cookie.name);	
+    });
+    redirect('/');
+}
 

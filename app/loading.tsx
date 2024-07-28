@@ -1,9 +1,10 @@
+import Image from "next/image"
+import loadingImage from "@/public/loading.png"
+
 export default function Loading()
 {
     return (
-        <h4 className="text-center text-3xl py-4 small-caps">
-            loading...
-        </h4>
+        <Image className='my-4 mx-auto rounded-md' src={loadingImage} alt="loading" height={300}/>
     )
 }
 
