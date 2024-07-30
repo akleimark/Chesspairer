@@ -1,10 +1,33 @@
 import Link from "next/link"
-import { AddIcon, PlayersIcon, TableIcon } from "./IconComponents"
+import { StartIcon, AddIcon, PlayersIcon, TableIcon } from "./IconComponents"
+import { Tournament } from '../lib/definitions';
+import { startTournamentAction } from "../lib/actions";
 
 export function TournamentButtonPanel(props : any)
 {    
-    const selectedTournament = props.selectedTournament;
-
+    const tournament : Tournament = props.selectedTournament;
+    const mayStartTournament = () =>
+    {
+        if(tournament?.pairingsystem == "Round Robin")
+        {
+            if(tournament.players?.length && tournament.players?.length % 2 == 0)
+            {
+                if(tournament.players?.length == tournament.number_of_rounds + 1)
+                {
+                    return true;
+                }
+            }
+            else if(tournament.players?.length && tournament.players?.length % 2 != 0)
+            {
+                if(tournament.players?.length == tournament.number_of_rounds )
+                {
+                    return true;
+                }
+            }                        
+        }
+        return false;
+    }
+    
     return (
         <>
         <div className="fixed bottom-16">
@@ -14,13 +37,21 @@ export function TournamentButtonPanel(props : any)
             </button>
           </Link>
 
-          { selectedTournament &&            
-          <Link href='/tournaments/players'>
-            <button className='p-2 m-1 rounded-md border-solid border-2 border-white-600' id="manageTournamentPlayers">
+          { tournament &&            
+            <Link href='/tournaments/players'>
+                <button className='p-2 ml-1 rounded-md border-solid border-2 border-white-600' id="manageTournamentPlayers">
                 <PlayersIcon />      
             </button>
-          </Link>          
-        }
+          </Link>
+            }
+
+        { mayStartTournament() &&             
+                <button className='p-2 ml-1 rounded-md border-solid border-2 border-white-600'>
+                    <StartIcon onClick={async () => {
+                    await startTournamentAction(tournament)
+            }} />
+                </button>         
+            }
         </div>   
         </>    
     )

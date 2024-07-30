@@ -441,3 +441,8 @@ export async function logoutAction()
     redirect('/');
 }
 
+export async function startTournamentAction(tournament : Tournament)
+{
+	console.log(tournament);
+	
+}

@@ -1,4 +1,3 @@
-
 import { redirect } from "next/navigation";
 import { cookies } from 'next/headers'
 
@@ -21,7 +20,6 @@ async function handleSubmit(formData: FormData)
     cookies().set('user-email', email);            
     redirect('/');
   } 
-  
 }
 
 const LoginForm = () =>

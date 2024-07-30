@@ -22,11 +22,15 @@ export default async function HomeComponent(props : any)
 
     const src = '/' + props.imageName;
     return (
-        <>        
-            <p className="p-2 text-lg text-center">
-                Welcome, {user.chessplayer.firstname}!
-            </p>
-            <Image className='my-4 mx-auto rounded-md' src={src} alt="Chess" width={1000} height={800}/>
+        <>  
+            <div className="h-4/6 relative">
+                <p className="p-2 text-lg text-center">
+                    Welcome, {user.chessplayer.firstname}!
+                </p>
+                <Image className='my-4 mx-auto rounded-md relative' src={src} alt="Chess" fill
+                style={{objectFit:"contain"}} />        
+            </div>       
+            
         </>
     )
 }

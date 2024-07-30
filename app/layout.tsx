@@ -33,7 +33,7 @@ export default async function RootLayout({
           <Logout />
           </>
         }                    
-          <div className="wrapper px-6 h-full relative">
+          <div className="wrapper px-6 h-[90vh] relative">
           <CookiesProvider>
             {children}             
           </CookiesProvider>              

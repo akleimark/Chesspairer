@@ -7,6 +7,7 @@ import selectedIcon from "@/public/selected.png";
 import playersIcon from "@/public/playersIcon.png"
 import logoutIcon from "@/public/logout-icon.png"
 import printerIcon from "@/public/printer-icon.png"
+import startIcon from "@/public/play-icon.png"
 import Link from "next/link";
 import Image from "next/image";
 
@@ -126,6 +127,15 @@ export function TableIcon(props : any)
                     {numberOfPlayers}
                 </button>
             </Link>
+        </>
+    )
+}
+
+export function StartIcon(props : any)
+{ 
+    return (
+        <>
+           <Image className="my-0 mx-auto" src={startIcon} alt={'start'} height={20} onClick={props.onClick}/> 
         </>
     )
 }

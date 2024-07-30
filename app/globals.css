@@ -33,3 +33,7 @@ nav:after
 	clear:both;
 }
 
+.relative 
+{
+	position: relative!important;
+}

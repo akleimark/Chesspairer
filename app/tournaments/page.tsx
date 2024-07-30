@@ -43,6 +43,7 @@ export default function TournamentPage()
   const userId = useCookies().get('user-email'); 
   const selectedTournament =  useCookies().get('selected_tournament'); 
   const [tournaments, setTournaments] = useState<Array<Tournament>>();
+  const [tournament, setTournament] = useState<Tournament>();
 
   useEffect(() => {fetch(`http://localhost:3000/api/tournaments/${userId}`, { cache: "no-store" })
   .then((res) => res.json())
@@ -51,6 +52,19 @@ export default function TournamentPage()
       setTournaments(tournaments.rows);      
   });
   }, [userId]);
+
+  useEffect(() => 
+  {
+    if(selectedTournament != undefined)
+    {
+      fetch(`http://localhost:3000/api/tournament/${selectedTournament}`, { cache: "no-store" })
+      .then((res) => res.json())
+      .then(({tournament}) =>
+      {       
+        setTournament(tournament);
+      });      
+    }
+  }, [selectedTournament])
 
     return (
     <>      
@@ -84,7 +98,7 @@ export default function TournamentPage()
             </tbody>
           </table>
         </div>
-        <TournamentButtonPanel userId={userId} selectedTournament={selectedTournament} />          
+        <TournamentButtonPanel selectedTournament={tournament} />          
       </div>
     </>
   );
