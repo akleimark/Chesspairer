@@ -2,18 +2,14 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { saveTournamentAction, deleteTournamentAction } from "@/app/lib/actions";
-import Link from "next/link";
 import { useFormState } from "react-dom";
-import { BackIcon, SaveIcon, DeleteIcon } from "@/app/components/IconComponents";
-import { Lato } from "next/font/google";
+import { SaveIcon, DeleteIcon } from "@/app/components/IconComponents";
 import { useCookies } from "next-client-cookies";
 import { useRouter } from "next/navigation";
 
 const initialState = {
   message: "",
 };
-
-const lato = Lato({subsets: ["latin"], weight:'400'});
 
 const EditTournament = () => {
   const [state, formAction] = useFormState(saveTournamentAction, initialState);
@@ -104,100 +100,94 @@ const EditTournament = () => {
   }, [params, userEmail, router]);
 
   return (
-    <>            
-      <div className={lato.className}>
-        <h1 className="text-3xl font-bold underline small-caps text-center my-8">edit a tournament</h1>
-        <form className="text-xl w-3/4 mx-auto my-10 p-12 relative bg-neutral-700" action={formAction}>
-          <Link href="/tournaments">
-            <BackIcon />
-          </Link>
-          <div className="m-1">
-            <label className="w-1/4 inline-block">Tournament-id: </label>
-            <input type="hidden" name="tournament_id" value={params.id} />
-            <input
-              value={params.id}
-              className="text-black p-1 w-96"
-              name="tournament_id"
-              id="tournament_id"
-              disabled
-            />
-          </div>
-          <div className="m-1">
-            <label className="w-1/4 inline-block">Name: </label>
-            <input
-              onChange={(event) => {
-                setTournamentName(event.target.value);
-              }}
-              value={tournamentName}
-              className="text-black p-1 w-96"
-              name="tournament_name"
-              id="tournament_name"
-              required
-            />
-          </div>
-          <div className="m-1">
-            <label className="w-1/4 inline-block">Startdate: </label>
-            <input
-              onChange={(event) => {
-                setStartdate(event.target.value);
-              }}
-              value={startdate}
-              className="text-black p-1"
-              name="tournament_startdate"
-              id="tournament_startdate"
-              type="date"
-              required
-            />
-          </div>
-          <div className="m-1">
-            <label className="w-1/4 inline-block">Enddate: </label>
-            <input
-              onChange={(event) => {
-                setEnddate(event.target.value);
-              }}
-              value={enddate}
-              className="text-black p-1"
-              name="tournament_enddate"
-              id="tournament_enddate"
-              type="date"
-              required
-            />
-          </div>
-          <div className="m-1">
-            <label className="w-1/4 inline-block">Number of rounds: </label>
-            <select
-              name="number_of_rounds"
-              onChange={(event) => {
-                setNumberOfRounds(parseInt(event.target.value));
-              }}
-              className="text-black w-96 p-1"
-            >
-              {renderNumberOfRoundsOptions()}
-            </select>
-          </div>
-          <div className="m-1">
-            <label className="w-1/4 inline-block">Pairingsystem: </label>
-            <select
-              name="tournament_pairingsystem"
-              className="text-black w-96 p-1"
-              onChange={(event) => {
-                setPairingsystem(event.target.value);
-              }}
-            >
-              {renderTournamentPairingsystemOptions()}
-            </select>
-          </div>
+    <>                  
+      <h1 className="text-3xl font-bold underline small-caps text-center my-8">edit a tournament</h1>
+      <form className="text-xl w-3/4 mx-auto my-10 p-12 relative bg-neutral-700" action={formAction}>          
+        <div className="m-1">
+          <label className="w-1/4 inline-block">Tournament-id: </label>
+          <input type="hidden" name="tournament_id" value={params.id} />
+          <input
+            value={params.id}
+            className="text-black p-1 w-96"
+            name="tournament_id"
+            id="tournament_id"
+            disabled
+          />
+        </div>
+        <div className="m-1">
+          <label className="w-1/4 inline-block">Name: </label>
+          <input
+            onChange={(event) => {
+              setTournamentName(event.target.value);
+            }}
+            value={tournamentName}
+            className="text-black p-1 w-96"
+            name="tournament_name"
+            id="tournament_name"
+            required
+          />
+        </div>
+        <div className="m-1">
+          <label className="w-1/4 inline-block">Startdate: </label>
+          <input
+            onChange={(event) => {
+              setStartdate(event.target.value);
+            }}
+            value={startdate}
+            className="text-black p-1"
+            name="tournament_startdate"
+            id="tournament_startdate"
+            type="date"
+            required
+          />
+        </div>
+        <div className="m-1">
+          <label className="w-1/4 inline-block">Enddate: </label>
+          <input
+            onChange={(event) => {
+              setEnddate(event.target.value);
+            }}
+            value={enddate}
+            className="text-black p-1"
+            name="tournament_enddate"
+            id="tournament_enddate"
+            type="date"
+            required
+          />
+        </div>
+        <div className="m-1">
+          <label className="w-1/4 inline-block">Number of rounds: </label>
+          <select
+            name="number_of_rounds"
+            onChange={(event) => {
+              setNumberOfRounds(parseInt(event.target.value));
+            }}
+            className="text-black w-96 p-1"
+          >
+            {renderNumberOfRoundsOptions()}
+          </select>
+        </div>
+        <div className="m-1">
+          <label className="w-1/4 inline-block">Pairingsystem: </label>
+          <select
+            name="tournament_pairingsystem"
+            className="text-black w-96 p-1"
+            onChange={(event) => {
+              setPairingsystem(event.target.value);
+            }}
+          >
+            {renderTournamentPairingsystemOptions()}
+          </select>
+        </div>
 
-          <div className="my-4">          
-            <button><SaveIcon /></button>
-            <button onClick={tryToDeleteTournament} type="button"><DeleteIcon /></button>                        
-          </div>
-        </form>
-        <p aria-live="polite" className="text-white">
-            {state?.message}
-        </p>
-      </div>
-      
+        <div className="my-4">          
+          <button><SaveIcon /></button>
+          <button onClick={tryToDeleteTournament} type="button"><DeleteIcon /></button>                        
+        </div>
+      </form>
+      <p aria-live="polite" className="text-white">
+          {state?.message}
+      </p>            
     </>
   );
 };

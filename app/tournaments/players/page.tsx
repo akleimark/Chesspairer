@@ -1,14 +1,10 @@
 "use client";
 import { Tournamentplayer, Chessplayer, Tournament} from "@/app/lib/definitions";
-import { AddIcon, BackIcon, DeleteIcon } from "@/app/components/IconComponents";
+import { AddIcon, DeleteIcon } from "@/app/components/IconComponents";
 import { useEffect, useState } from "react";
 import { useCookies } from "next-client-cookies";
-import Link from "next/link";
 import { addTournamentplayerAction, removeTournamentplayerAction, getTournamentDataAction} from "@/app/lib/actions";
 import { TournamentplayersSearchbar } from "@/app/components/Searchbars";
-import { Lato } from "next/font/google";
-
-const lato = Lato({ subsets: ["latin"], weight: "400" });
 
 export default function TournamentPlayersPage() 
 {
@@ -161,34 +157,30 @@ export default function TournamentPlayersPage()
   }
 
   return (
-    <>
-      <div className={`${lato.className} h-full overflow-hidden`}>
-        <h1 className="text-3xl font-bold underline small-caps text-center my-8">
-          tournament players
-        </h1>
-        <div className="mx-auto my-10 p-12 relative bg-neutral-700 h-3/4">
-          <Link href="/tournaments">
-            <BackIcon />
-          </Link>
-          <div className="grid grid-cols-2 gap-1">
-            <div>
-              <h4 className="text-center font-bold text-lg">
-                Available players ({chessplayers?.length})
-              </h4>
-              {showAvailablePlayers()}
-            </div>
-            <div>
-              <h4 className="text-center font-bold text-lg">
-                Participants ({tournament?.players?.length})
-              </h4>
-              {showParticipants()}
-            </div>
+    <>      
+      <h1 className="text-3xl font-bold underline small-caps text-center my-8">
+        tournament players
+      </h1>
+      <div className="mx-auto my-10 p-4 relative bg-neutral-700 h-4/6">        
+        <div className="grid grid-cols-2 gap-1 h-5/6 overflow-y-auto">
+          <div>
+            <h4 className="text-center font-bold text-lg">
+              Available players ({chessplayers?.length})
+            </h4>
+            {showAvailablePlayers()}
           </div>
-          <div className="absolute my-2 bottom-3 -ml-2">
-            <TournamentplayersSearchbar onDataFromChild={handleDataFromChild} />
+          <div>
+            <h4 className="text-center font-bold text-lg">
+              Participants ({tournament?.players?.length})
+            </h4>
+            {showParticipants()}
           </div>
         </div>
+        <div className="absolute my-2 bottom-0">
+          <TournamentplayersSearchbar onDataFromChild={handleDataFromChild} />
+        </div>
       </div>
+      
     </>
   );
 }

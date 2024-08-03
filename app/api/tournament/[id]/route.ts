@@ -8,7 +8,8 @@ export async function GET(request: Request, { params }: { params: { id: number }
 
     const result = await
     sql
-    `   SELECT  t.name, 
+    `   SELECT  t.id,
+                t.name, 
                 t.user_email, 
                 t.pairingsystem, 
                 t.number_of_rounds, 
@@ -34,15 +35,28 @@ export async function GET(request: Request, { params }: { params: { id: number }
             WHERE tc.tournament_id=${id}
             ORDER BY tc.player_number
         `;
+        const tournamentResults = await
+        sql
+        `   SELECT  r.tournament_id,
+            r.white,
+            r.black,
+            r.round_number, 
+            r.result
+            FROM results r            
+            WHERE r.tournament_id=${id}            
+        `;
+
         const tournament : Tournament = 
         {
+            id: result.rows[0].id,
             user_email : result.rows[0].user_email,     
             name: result.rows[0].name,
             pairingsystem: result.rows[0].pairingsystem, 
             number_of_rounds: result.rows[0].number_of_rounds,
             startdate: result.rows[0].startdate,
             enddate: result.rows[0].enddate,
-            players: tournamentplayers.rows
+            players: tournamentplayers.rows,
+            results: tournamentResults.rows
         }
          
         return NextResponse.json({ tournament: tournament }, { status: 200 });                  

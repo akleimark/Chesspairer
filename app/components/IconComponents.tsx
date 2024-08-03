@@ -8,6 +8,8 @@ import playersIcon from "@/public/playersIcon.png"
 import logoutIcon from "@/public/logout-icon.png"
 import printerIcon from "@/public/printer-icon.png"
 import startIcon from "@/public/play-icon.png"
+import pairingIcon from "@/public/pairing-icon.png"
+import homeIcon from "@/public/home-icon.png"
 import Link from "next/link";
 import Image from "next/image";
 
@@ -136,6 +138,24 @@ export function StartIcon(props : any)
     return (
         <>
            <Image className="my-0 mx-auto" src={startIcon} alt={'start'} height={20} onClick={props.onClick}/> 
+        </>
+    )
+}
+
+export function PairingIcon(props : any)
+{ 
+    return (
+        <>
+           <Image className="my-0 mx-auto" src={pairingIcon} alt={'pairing'} height={20} onClick={props.onClick}/> 
+        </>
+    )
+}
+
+export function HomeIcon(props : any)
+{ 
+    return (
+        <>
+           <Image className="my-0 mx-auto" src={homeIcon} alt={'home'} height={20} onClick={props.onClick}/> 
         </>
     )
 }

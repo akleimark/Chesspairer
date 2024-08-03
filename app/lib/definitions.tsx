@@ -27,9 +27,18 @@ export type Result =
     tournament_id: number,
     white: number,
     black: number,
-    roundNumber: number, 
+    round_number: number, 
     result: string
 }
+
+export type TournamentRoundResult = 
+{
+    white : string,
+    black : string,
+    round_number : number, 
+    result : string
+}
+
 
 export type Tournamentplayer = 
 {
@@ -50,6 +59,6 @@ export type Tournament =
     number_of_rounds: number,
     startdate: string,
     enddate: string,
-    results? : Array<Result>,
+    results? : Array<any>,
     players?: Array<any>
 }
