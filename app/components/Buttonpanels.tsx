@@ -15,8 +15,7 @@ export function TournamentButtonPanel()
         fetch(`http://localhost:3000/api/tournament/${cookieValue}`, {cache: "no-store"})
         .then((res) => res.json())
         .then(({ tournament }) => 
-        {
-            console.log(tournament);
+        {            
             setTournament(tournament);
         });
     }, [cookieValue]);

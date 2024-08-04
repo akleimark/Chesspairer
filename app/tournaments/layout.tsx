@@ -2,7 +2,7 @@ import { ToolsButtonPanel, TournamentButtonPanel } from "../components/Buttonpan
 import { Lato } from "next/font/google";
 const lato = Lato({subsets: ["latin"], weight:'400'});
 
-export default function ToolsLayout({
+export default function TournamentLayout({
   children, 
 }: {
   children: React.ReactNode
